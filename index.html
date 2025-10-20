@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workflow Docs for LegalServer</title>
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <style>
+    :root{
+      --bg: #fbfaf8;
+      --ink: #1c2430;
+      --muted: #5f6b7a;
+      --card: #ffffff;
+      --border: #e7e2db;
+  /* improved contrast palette */
+  --accent1: #2563eb; /* stronger blue (royal blue) */
+  --accent2: #7c3aed; /* deeper purple (violet) */
+  --accent3: #ef6c2f; /* richer orange */
+  --accent4: #16a34a; /* distinct green for better contrast */
+      --radius: 18px;
+      --shadow: 0 8px 24px rgba(20,24,31,.08);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0e1116;
+        --ink: #f4f6fb;
+        --muted: #b2bccb;
+        --card: #151a22;
+        --border: #222a35;
+        --shadow: 0 8px 24px rgba(0,0,0,.35);
+      }
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:clamp(20px,5vw,40px)}
+
+    .hero{
+      position:relative; isolation:isolate; overflow:hidden;
+      padding: clamp(28px, 6vw, 56px) 0 0;
+    }
+
+    .logo{max-width:320px; height:auto; margin-bottom:clamp(8px,1.5vw,12px)}
+    .title{font-weight:800; font-size:clamp(28px,4.5vw,52px); letter-spacing:-.02em; margin:0 0 6px}
+    .eyebrow{color:var(--muted); text-transform:uppercase; font-weight:700; letter-spacing:.12em; font-size:.78rem}
+    .subtitle{color:var(--muted); font-size:clamp(14px,2.2vw,18px); margin:.4rem 0 3rem; max-width:60ch}
+
+    /* Path SVG sits behind cards */
+    .flow{
+      position:absolute; inset:280px -80px -40px; z-index:0; pointer-events:none;
+      filter: drop-shadow(0 6px 14px rgba(20,24,31,.08));
+    }
+
+    .grid{position:relative; z-index:1; display:grid; gap:22px; grid-template-columns:repeat(12,1fr); align-items:start}
+
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:18px 18px 16px; display:flex; gap:14px; align-items:flex-start;
+      min-height:112px
+    }
+    .card h3{margin:2px 0 6px; font-size:1rem}
+    .card p{margin:0; color:var(--muted); font-size:.95rem}
+
+    /* Positions for the four stages */
+    .stage-1{grid-column: 2 / span 4}
+    .stage-2{grid-column: 8 / span 4; margin-top:40px}
+    .stage-3{grid-column: 2 / span 4; margin-top:16px}
+    .stage-4{grid-column: 8 / span 4; margin-top:40px}
+
+    /* Stage tags */
+    .tag{display:inline-block; font-weight:700; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:#fff; padding:.28rem .5rem; border-radius:999px}
+    .tag.blue{background:var(--accent1)}
+    .tag.purple{background:var(--accent2)}
+  .tag.orange{background:var(--accent3)}
+  .tag.green{background:var(--accent4)}
+
+    /* Icon circle */
+    .icon{
+      flex:0 0 40px; width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
+      background: #fff; border:1px solid var(--border);
+    }
+    .icon svg{width:22px; height:22px}
+
+    /* CTA */
+    .cta{margin-top: clamp(22px, 4vw, 32px); display:flex; gap:12px; flex-wrap:wrap}
+    .btn{appearance:none; border:1px solid var(--border); background:var(--ink); color:#fff; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer}
+    .btn.ghost{background:transparent; color:var(--ink)}
+
+    /* Contact Form */
+    form{display:flex; flex-direction:column; gap:14px; max-width:360px}
+    label{display:flex; flex-direction:column; gap:6px; font-weight:600; font-size:.95rem}
+    input{padding:10px 12px; border:1px solid var(--border); background:var(--card); color:var(--ink); border-radius:8px; font-size:1rem; font-family:inherit}
+    input:focus{outline:none; border-color:var(--accent1); box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+    input::placeholder{color:var(--muted)}
+
+    /* Pricing Section */
+    .pricing-section{margin-top:clamp(40px,8vw,80px); padding-top:clamp(32px,6vw,56px); border-top:1px solid var(--border)}
+    .pricing-title{text-align:center; font-size:clamp(24px,3.5vw,38px); font-weight:800; margin-bottom:8px}
+    .pricing-subtitle{text-align:center; color:var(--muted); margin-bottom:clamp(28px,5vw,40px); font-size:clamp(14px,2vw,17px)}
+    .pricing-grid{display:flex; gap:20px; justify-content:center; flex-wrap:wrap}
+    .pricing-card{background:var(--card); border:2px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px; width:240px; text-align:center; position:relative}
+    .pricing-card.popular{border-color:var(--accent1); border-width:3px; transform:scale(1.03); box-shadow:0 8px 24px rgba(37,99,235,.2)}
+    .pricing-card.popular::before{content:'POPULAR'; position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--accent1); color:#fff; padding:.35rem .85rem; border-radius:20px; font-size:.75rem; font-weight:700; letter-spacing:.05em}
+    .pricing-card h3{font-size:1.4rem; font-weight:700; margin:0 0 6px}
+    .pricing-card .user-range{color:var(--muted); font-size:.95rem; font-weight:500; margin-bottom:1.2rem}
+    .pricing-card .price-original{font-size:1.3rem; font-weight:700; color:#dc2626; text-decoration:line-through; text-decoration-thickness:2px; margin-bottom:2px}
+    .pricing-card .price{font-size:1.85rem; font-weight:800; margin-bottom:4px}
+    .pricing-card .discount{color:#dc2626; font-size:.85rem; font-weight:600; margin-bottom:1.2rem}
+    .pricing-card .custom-price{color:#16a34a}
+    .pricing-card ul{list-style:none; padding:0; margin:1.2rem 0 0; color:var(--ink); font-size:.88rem; line-height:1.65; text-align:left}
+    .pricing-card ul li{padding:.2rem 0; font-weight:500}
+    .pricing-card ul li::before{content:'✓ '; color:var(--accent1); font-weight:700}
+
+    /* Trusted By Section */
+    .trusted-by{margin-top:clamp(48px,8vw,72px); padding:clamp(32px,5vw,48px) 0; text-align:center; background:var(--bg)}
+    .trusted-by-title{font-size:clamp(18px,2.5vw,24px); font-weight:700; color:var(--muted); margin-bottom:clamp(24px,4vw,32px); text-transform:uppercase; letter-spacing:.1em; font-size:.9rem}
+    .trusted-logos{display:flex; justify-content:center; align-items:center; gap:clamp(32px,5vw,48px); flex-wrap:wrap}
+    .trusted-logo{max-width:180px; height:auto; opacity:.7; transition:opacity .2s; filter:grayscale(100%)}
+    .trusted-logo:hover{opacity:1; filter:grayscale(0%)}
+    .trusted-org{color:var(--ink); font-weight:600; font-size:clamp(14px,1.8vw,16px); padding:12px 20px; border:2px solid var(--border); border-radius:12px; transition:border-color .2s}
+    .trusted-org:hover{border-color:var(--accent1)}
+
+    /* Footer */
+    .footer{margin-top:clamp(48px,8vw,80px); padding:clamp(32px,5vw,48px) 0; border-top:1px solid var(--border); text-align:center}
+    .footer-text{color:var(--muted); font-size:.9rem; margin-bottom:16px}
+    .lemma-logo{max-width:140px; height:auto; opacity:.85; transition:opacity .2s}
+    .lemma-logo:hover{opacity:1}
+
+    @media (max-width: 860px){
+      .flow{inset:300px -140px -60px}
+      .grid{grid-template-columns:1fr}
+      .stage-1,.stage-2,.stage-3,.stage-4{grid-column:auto; margin:0}
+      .card{min-height:auto}
+    }
+  </style>
+</head>
+<body>
+  <header class="container hero" aria-label="Workflow Docs hero">
+    <h1><img src="workflowdocs_logo_wordmark.svg" alt="Workflow Docs" class="logo" /></h1>
+    <p class="subtitle">A client-friendly, staff-ready way to build smarter legal documents, integrated directly into LegalServer. Follow the journey from adaptive templates to signatures, uploads, and AI-powered follow‑ups.</p>
+
+    <!-- Decorative journey path -->
+    <svg class="flow" viewBox="0 0 1400 680" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="var(--accent1)"/>
+          <stop offset="50%" stop-color="var(--accent2)"/>
+          <stop offset="100%" stop-color="var(--accent3)"/>
+        </linearGradient>
+        <filter id="soft">
+          <feGaussianBlur stdDeviation="2"/>
+        </filter>
+      </defs>
+      <path d="M60 40 C 260 40, 260 220, 460 220 S 660 400, 860 400 1060 220, 1260 220" fill="none" stroke="url(#grad)" stroke-width="16" stroke-linecap="round"/>
+      <path d="M60 360 C 260 360, 260 540, 460 540 S 660 360, 860 360 1060 540, 1260 540" fill="none" stroke="url(#grad)" stroke-width="16" stroke-linecap="round" opacity=".7" filter="url(#soft)"/>
+    </svg>
+
+    <div class="grid" role="list">
+      <!-- Stage 1: Smart Templates -->
+      <article class="card stage-1" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="14" rx="3"/>
+            <path d="M7 7h6M7 11h10"/>
+            <circle cx="8" cy="19" r="2"/>
+            <circle cx="16" cy="19" r="2"/>
+          </svg>
+        </div>
+        <div>
+          <span class="tag blue">Step 1</span>
+          <h3>Smart Templates</h3>
+          <p>Dynamic logic shows only what matters. No full questionnaire build required. AI tools help you draft templates in one click.</p>
+        </div>
+      </article>
+
+      <!-- Stage 2: Document Collection -->
+      <article class="card stage-2" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/>
+            <path d="M7 10l5-5 5 5"/>
+            <path d="M12 5v12"/>
+          </svg>
+        </div>
+        <div>
+          <span class="tag purple">Step 2</span>
+          <h3>Document Collection</h3>
+          <p>Need a document? No problem. Send your client an easy upload link and get documents back in the case file in minutes.</p>
+        </div>
+      </article>
+
+      <!-- Stage 3: Signature Gathering -->
+      <article class="card stage-3" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 20h18"/>
+            <path d="M17 3a2 2 0 0 1 2 2l-9 9-4 1 1-4 9-9Z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="tag green">Step 3</span>
+          <h3>Signature Pad</h3>
+          <p>Collect legally binding e‑signatures with clear status for each signer.</p>
+        </div>
+      </article>
+
+      <!-- Stage 4: AI Assistant -->
+      <article class="card stage-4" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="4"/>
+            <path d="M7 10h.01M12 10h.01M17 10h.01"/>
+            <path d="M8 16c1.2-1 6.8-1 8 0"/>
+          </svg>
+        </div>
+        <div>
+          <span class="tag orange">Step 4</span>
+          <h3>AI Follow‑ups</h3>
+          <p>Send clients short, focused questionnaires to fill gaps in intake. Describe what you need and WorkflowDocs does the rest.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+      <h2 class="pricing-title">Simple, transparent pricing</h2>
+      <p class="pricing-subtitle">Choose the plan that fits your organization</p>
+      
+      <div class="pricing-grid">
+        <!-- Starter Plan -->
+        <div class="pricing-card">
+          <h3>Starter</h3>
+          <p class="user-range">1-10 users</p>
+          <div class="price-original">$149 + $11/user</div>
+          <div class="price">$111.75 + $8.25/user</div>
+          <p class="discount">25% off — Sign up by Dec 15th<br/>Full-year commitment required</p>
+          <ul>
+            <li>1-click templates</li>
+            <li>AI questionnaires</li>
+            <li>Document requests</li>
+            <li>eSignatures</li>
+            <li>Email support</li>
+          </ul>
+        </div>
+
+        <!-- Growth Plan (Popular) -->
+        <div class="pricing-card popular">
+          <h3>Growth</h3>
+          <p class="user-range">11-50 users</p>
+          <div class="price-original">$149 + $9/user</div>
+          <div class="price">$111.75 + $6.75/user</div>
+          <p class="discount">25% off — Sign up by Dec 15th<br/>Full-year commitment required</p>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Advanced automation</li>
+            <li>Priority support</li>
+          </ul>
+        </div>
+
+        <!-- Professional Plan -->
+        <div class="pricing-card">
+          <h3>Professional</h3>
+          <p class="user-range">50-200 users</p>
+          <div class="price-original">$299 + $7/user</div>
+          <div class="price">$224.25 + $5.25/user</div>
+          <p class="discount">25% off — Sign up by Dec 15th<br/>Full-year commitment required</p>
+          <ul>
+            <li>Everything in Growth</li>
+            <li>Custom integrations</li>
+            <li>Dedicated support</li>
+            <li>Advanced analytics</li>
+          </ul>
+        </div>
+
+        <!-- Organization Plan -->
+        <div class="pricing-card">
+          <h3>Organization</h3>
+          <p class="user-range">For large nonprofits</p>
+          <div class="price">Custom</div>
+          <p class="discount custom-price">Tailored pricing</p>
+          <ul>
+            <li>Everything in Professional</li>
+            <li>Customized workflows</li>
+            <li>Multi-office support</li>
+            <li>24/7 phone support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="trusted-by">
+      <h2 class="trusted-by-title">Trusted by</h2>
+      <div class="trusted-logos">
+        <img src="gbls_logo.gif" alt="Greater Boston Legal Services" class="trusted-logo" />
+        <img src="mmls_logo.png" alt="Mid-Missouri Legal Services" class="trusted-logo" />
+        <img src="slsct_logo.png" alt="Statewide Legal Services of Connecticut" class="trusted-logo" />
+      </div>
+    </section>
+
+    <div class="cta" aria-label="contact section">
+      <form id="contact-form">
+        <label>
+          Name:
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Email:
+          <input type="email" name="email" required />
+        </label>
+        <button type="submit" class="btn">Join the waitlist</button>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <p class="footer-text">WorkflowDocs is a project of</p>
+      <a href="https://lemmalegal.com" target="_blank" rel="noopener noreferrer">
+        <img src="Lemma_Logo.png" alt="Lemma Legal" class="lemma-logo" />
+      </a>
+    </footer>
+  </header>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email')
+      };
+      try {
+        await fetch('https://script.google.com/macros/s/AKfycbyKGafN-7r5pS8YNlrOiftChFUPEwNZ6_HJaO2KlSfYSfLqB5MSpCOm7-MPVxcmr2TF/exec', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+        alert('Thanks for joining the waitlist!');
+        form.reset();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('There was an error. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
