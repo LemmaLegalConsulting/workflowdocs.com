@@ -58,11 +58,11 @@
       filter: drop-shadow(0 6px 14px rgba(20,24,31,.08));
     }
 
-    .grid{position:relative; z-index:1; display:grid; gap:22px; grid-template-columns:repeat(12,1fr); align-items:start}
+    .grid{position:relative; z-index:1; display:grid; gap:32px; grid-template-columns:repeat(12,1fr); align-items:start}
 
     .card{
       background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-      box-shadow:var(--shadow); padding:18px 18px 16px; display:flex; gap:14px; align-items:flex-start;
+      box-shadow:var(--shadow); padding:24px 22px 20px; display:flex; gap:16px; align-items:flex-start;
       min-height:112px
     }
     .card h3{margin:2px 0 6px; font-size:1rem}
@@ -94,7 +94,7 @@
     .btn.ghost{background:transparent; color:var(--ink)}
 
     /* Contact Form */
-    form{display:flex; flex-direction:column; gap:14px; max-width:360px}
+    form{display:flex; flex-direction:column; gap:14px; max-width:360px; margin:0 auto}
     label{display:flex; flex-direction:column; gap:6px; font-weight:600; font-size:.95rem}
     input{padding:10px 12px; border:1px solid var(--border); background:var(--card); color:var(--ink); border-radius:8px; font-size:1rem; font-family:inherit}
     input:focus{outline:none; border-color:var(--accent1); box-shadow:0 0 0 3px rgba(37,99,235,.1)}
@@ -135,9 +135,10 @@
 
     @media (max-width: 860px){
       .flow{inset:300px -140px -60px}
-      .grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr; padding:0 16px}
       .stage-1,.stage-2,.stage-3,.stage-4{grid-column:auto; margin:0}
       .card{min-height:auto}
+      .subtitle{padding:0 16px}
     }
   </style>
 </head>
@@ -315,7 +316,7 @@
           Email:
           <input type="email" name="email" required />
         </label>
-        <button type="submit" class="btn">Join the waitlist</button>
+        <button type="submit" class="btn">Get in touch</button>
       </form>
     </div>
 
