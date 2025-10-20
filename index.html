@@ -82,6 +82,14 @@
   .tag.orange{background:var(--accent3)}
   .tag.green{background:var(--accent4)}
 
+    /* Dotted connector between stage 1 and 1.5 */
+    .stage-1{position:relative}
+    .stage-1::after{
+      content:''; position:absolute; top:50%; left:100%; width:200%; height:0;
+      border-top:3px dotted var(--accent1); opacity:.4; z-index:-1;
+      transform:translateY(-50%);
+    }
+
     /* Icon circle */
     .icon{
       flex:0 0 40px; width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
@@ -175,6 +183,12 @@
       .stage-1,.stage-1-5,.stage-2,.stage-3,.stage-4{grid-column:auto; margin:0}
       .card{min-height:auto}
       .subtitle{padding:0 16px}
+      /* Adjust dotted line for mobile - vertical connection */
+      .stage-1::after{
+        top:100%; left:50%; width:0; height:32px;
+        border-top:none; border-left:3px dotted var(--accent1); 
+        transform:translateX(-50%) translateY(0);
+      }
     }
   </style>
 </head>
@@ -212,7 +226,7 @@
         </div>
         <div>
           <span class="tag blue">Step 1</span>
-          <h3>Smart Templates</h3>
+          <h3>Smart templates</h3>
           <p>Dynamic logic shows only what matters. No full questionnaire build required. AI tools help you draft templates in one click.</p>
         </div>
       </article>
@@ -227,8 +241,8 @@
           </svg>
         </div>
         <div>
-          <span class="tag blue">AI Generation</span>
-          <h3>Generate on the Fly</h3>
+          <span class="tag blue">AI generation</span>
+          <h3>Generate on the fly</h3>
           <p>No template? No problem. Use AI to generate custom documents directly from your case data—perfect for one-off letters, memos, and motions.</p>
         </div>
       </article>
@@ -244,7 +258,7 @@
         </div>
         <div>
           <span class="tag purple">Step 2</span>
-          <h3>Document Collection</h3>
+          <h3>Document collection</h3>
           <p>Need a document? No problem. Send your client an easy upload link and get documents back in the case file in minutes.</p>
         </div>
       </article>
@@ -259,7 +273,7 @@
         </div>
         <div>
           <span class="tag green">Step 3</span>
-          <h3>Signature Pad</h3>
+          <h3>Signature pad</h3>
           <p>Collect legally binding e‑signatures with clear status for each signer.</p>
         </div>
       </article>
@@ -275,7 +289,7 @@
         </div>
         <div>
           <span class="tag orange">Step 4</span>
-          <h3>AI Follow‑ups</h3>
+          <h3>AI follow‑ups</h3>
           <p>Send clients short, focused questionnaires to fill gaps in intake. Describe what you need and WorkflowDocs does the rest.</p>
         </div>
       </article>
@@ -283,12 +297,12 @@
 
     <!-- All-in-One Solution Section -->
     <section class="all-in-one-section container">
-      <h2 class="all-in-one-title">One Solution. Everything You Need.</h2>
+      <h2 class="all-in-one-title">One solution. Everything you need.</h2>
       <p class="all-in-one-subtitle">Stop juggling multiple tools and subscriptions. WorkflowDocs replaces them all with a single, integrated platform.</p>
       
       <div class="replace-grid">
         <div class="replace-card crossed">
-          <h3>Template Authoring Tools</h3>
+          <h3>Template authoring tools</h3>
           <p>Complex software, steep learning curve</p>
         </div>
 
@@ -298,20 +312,20 @@
         </div>
 
         <div class="replace-card crossed">
-          <h3>Document Collection Tools</h3>
+          <h3>Document collection tools</h3>
           <p>Manual follow-ups and tracking</p>
         </div>
       </div>
 
       <div class="benefit-box">
-        <h3>✓ End Phone Tag Forever</h3>
+        <h3>✓ End phone tag forever</h3>
         <p>Stop chasing hard-to-reach clients. Get complete case information without the back and forth. WorkflowDocs guides clients through everything they need to provide—on their own time.</p>
       </div>
     </section>
 
     <!-- Security & Privacy Section -->
     <section class="security-section">
-      <h2 class="security-title">Security & Data Privacy</h2>
+      <h2 class="security-title">Security & data privacy</h2>
       <p class="security-subtitle">Your clients' data is protected at every step</p>
       
       <div class="security-grid">
@@ -323,7 +337,7 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>
           </div>
-          <h3>Bank-Level Security</h3>
+          <h3>Bank-level security</h3>
           <p>Enterprise-grade encryption and security protocols protect all data in transit and at rest.</p>
         </div>
 
@@ -334,7 +348,7 @@
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
           </div>
-          <h3>Data Stays in LegalServer</h3>
+          <h3>Data stays in LegalServer</h3>
           <p>All case data remains securely inside your LegalServer instance. We never store or access your client information.</p>
         </div>
 
@@ -346,7 +360,7 @@
               <path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75L19 15z"/>
             </svg>
           </div>
-          <h3>AI Enterprise Privacy</h3>
+          <h3>AI enterprise privacy</h3>
           <p>AI features use OpenAI's enterprise privacy policy. Your data is never stored or used for training purposes.</p>
         </div>
 
@@ -358,7 +372,7 @@
               <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
             </svg>
           </div>
-          <h3>Ethical AI Design</h3>
+          <h3>Ethical AI design</h3>
           <p>AI features ask questions and gather information, but never give clients legal advice or recommendations.</p>
         </div>
       </div>
@@ -433,28 +447,28 @@
 
     <!-- Professional Services Section -->
     <section class="services-section container">
-      <h2 class="services-title">Need Extra Help?</h2>
+      <h2 class="services-title">Need extra help?</h2>
       <p class="services-subtitle">From AI-powered template creation to complex custom workflows, we're here to support your team.</p>
       
       <div class="services-grid">
         <!-- AI Template Authoring -->
         <div class="service-card">
           <div class="service-icon">✨</div>
-          <h3>AI-Powered Templates</h3>
+          <h3>AI-powered templates</h3>
           <p>Use our built-in AI tools to draft templates in one click. No coding or complex logic required—just describe what you need.</p>
         </div>
 
         <!-- Hourly Support -->
         <div class="service-card">
           <div class="service-icon">🤝</div>
-          <h3>Hourly Template Support</h3>
+          <h3>Hourly template support</h3>
           <p>Need hands-on help? Our team can assist with template authoring and workflow setup on an affordable hourly basis.</p>
         </div>
 
         <!-- Docassemble Development -->
         <div class="service-card">
           <div class="service-icon">⚙️</div>
-          <h3>Complex Workflows</h3>
+          <h3>Complex workflows</h3>
           <p>For advanced needs, Lemma builds full-featured Docassemble interviews at affordable rates. Perfect for sophisticated intake and document assembly.</p>
         </div>
       </div>
