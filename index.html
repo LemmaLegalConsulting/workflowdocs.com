@@ -68,11 +68,12 @@
     .card h3{margin:2px 0 6px; font-size:1rem}
     .card p{margin:0; color:var(--muted); font-size:.95rem}
 
-    /* Positions for the four stages */
+    /* Positions for the five stages */
     .stage-1{grid-column: 2 / span 4}
-    .stage-2{grid-column: 8 / span 4; margin-top:40px}
-    .stage-3{grid-column: 2 / span 4; margin-top:16px}
-    .stage-4{grid-column: 8 / span 4; margin-top:40px}
+    .stage-1-5{grid-column: 8 / span 4; margin-top:40px}
+    .stage-2{grid-column: 2 / span 4; margin-top:16px}
+    .stage-3{grid-column: 8 / span 4; margin-top:40px}
+    .stage-4{grid-column: 2 / span 4; margin-top:16px}
 
     /* Stage tags */
     .tag{display:inline-block; font-weight:700; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:#fff; padding:.28rem .5rem; border-radius:999px}
@@ -136,7 +137,7 @@
     @media (max-width: 860px){
       .flow{inset:300px -140px -60px}
       .grid{grid-template-columns:1fr; padding:0 16px}
-      .stage-1,.stage-2,.stage-3,.stage-4{grid-column:auto; margin:0}
+      .stage-1,.stage-1-5,.stage-2,.stage-3,.stage-4{grid-column:auto; margin:0}
       .card{min-height:auto}
       .subtitle{padding:0 16px}
     }
@@ -178,6 +179,22 @@
           <span class="tag blue">Step 1</span>
           <h3>Smart Templates</h3>
           <p>Dynamic logic shows only what matters. No full questionnaire build required. AI tools help you draft templates in one click.</p>
+        </div>
+      </article>
+
+      <!-- Stage 1.5: AI Document Generation -->
+      <article class="card stage-1-5" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"/>
+            <path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75L19 15z"/>
+            <path d="M6 16l.5 1.5L8 18l-1.5.5L6 20l-.5-1.5L4 18l1.5-.5L6 16z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="tag blue">AI Generation</span>
+          <h3>Generate on the Fly</h3>
+          <p>No template? No problem. Use AI to generate custom documents directly from your case data—perfect for one-off letters, memos, and motions.</p>
         </div>
       </article>
 
