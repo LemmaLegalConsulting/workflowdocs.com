@@ -4,22 +4,32 @@ Make your templates adapt to the data by using dynamic phrasing and conditional 
 
 ## 1. Conditional Blocks (`if`)
 
-Use `{% if %}` blocks to show or hide entire sections of text based on whether a variable exists or a condition is met.
+Use `{%p if %}` blocks to show or hide entire sections of text based on whether a variable exists or a condition is met. The `p` prefix (e.g., `{%p if %}` and `{%p endif %}`) is recommended to avoid extra empty paragraphs in Word documents.
 
 ```jinja2
-{% if children %}
+{%p if children %}
 CLIENT'S CHILDREN:
 {{ children.comma_and_list() }}
-{% endif %}
+{%p endif %}
 ```
 
 ## 2. Inline Conditionals
 
-For small variations within a sentence (like "is" vs "are"), use an inline `if` statement.
+For variations within a single line or paragraph, use an inline `if` expression inside curly braces. This does not require a closing tag and should not use the `p` prefix.
 
 ```jinja2
 The client {{ "is" if clients.length == 1 else "are" }} currently residing in...
 ```
+
+You can also use standard `{% if %}` tags inside a paragraph if you want to conditionally include text without starting a new paragraph:
+
+```jinja2
+The client is {% if income > 1000 %}eligible{% else %}ineligible{% endif %} for the fee waiver.
+```
+
+:::warning
+Only use `{%p if %}` when the tag is on its own line and you want to control the flow of paragraphs. Using `{%p %}` inside an existing line of text will cause formatting errors.
+:::
 
 ## 3. Handling Pluralization (Standard Methods)
 

@@ -41,9 +41,9 @@ Use these snippets as a guide for accessing deep attributes and looping through 
 Display a list of all staff members and their assignment types:
 
 ```jinja2
-{% for assignment in legalserver_data['assignments'] %}
+{%p for assignment in legalserver_data['assignments'] %}
 - {{ assignment['user']['user_name'] }} ({{ assignment['type']['lookup_value_name'] }})
-{% endfor %}
+{%p endfor %}
 ```
 
 ### Formatted Income Table (Word/DOCX)
