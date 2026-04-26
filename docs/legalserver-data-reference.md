@@ -1,33 +1,35 @@
 # LegalServer Data Reference
 
-The `legalserver_data` variable is a raw JSON dictionary containing all case details fetched from the LegalServer API. You can access these fields using standard Python dictionary or object notation (e.g., `{{ legalserver_data.case_number }}`).
+The `legalserver_data` variable is a raw Python dictionary containing all case details fetched from the LegalServer API. 
+
+While Jinja2 (the template language) often allows you to use "dot notation" (e.g., `legalserver_data.case_number`), the canonical way to access dictionary keys is using **bracket notation**: `{{ legalserver_data['case_number'] }}`. This is required if you are writing logic in a Python `code` block.
 
 ## Common Object Structures
 
-Many fields in `legalserver_data` follow one of these two standard structures:
+Many fields in `legalserver_data` return nested dictionaries or objects.
 
 ### 1. Lookup Values
-Fields representing a selection from a LegalServer lookup table (dropdown) return an object with these attributes:
+Fields representing a selection from a LegalServer lookup table (dropdown) return a dictionary with these keys:
 
-| Attribute | Description |
+| Key | Description |
 |---|---|
-| `lookup_value_name` | The human-readable label (e.g., "Active"). |
-| `lookup_value_id` | The internal LegalServer ID. |
-| `lookup_value_uuid` | The unique UUID. |
-| `lookup_type_name` | The name of the lookup table. |
+| `['lookup_value_name']` | The human-readable label (e.g., "Active"). |
+| `['lookup_value_id']` | The internal LegalServer ID. |
+| `['lookup_value_uuid']` | The unique UUID. |
+| `['lookup_type_name']` | The name of the lookup table. |
 
-**Example:** `{{ legalserver_data.case_status.lookup_value_name }}`
+**Example:** `{{ legalserver_data['case_status']['lookup_value_name'] }}`
 
 ### 2. User/Staff Objects
-Fields representing a staff member or user return an object with these attributes:
+Fields representing a staff member or user return a dictionary with these keys:
 
-| Attribute | Description |
+| Key | Description |
 |---|---|
-| `user_name` | The full name of the user. |
-| `user_id` | The internal LegalServer ID. |
-| `user_uuid` | The unique UUID. |
+| `['user_name']` | The full name of the user. |
+| `['user_id']` | The internal LegalServer ID. |
+| `['user_uuid']` | The unique UUID. |
 
-**Example:** `{{ legalserver_data.intake_user.user_name }}`
+**Example:** `{{ legalserver_data['intake_user']['user_name'] }}`
 
 ---
 
@@ -39,27 +41,29 @@ Use these snippets as a guide for accessing deep attributes and looping through 
 Display a list of all staff members and their assignment types:
 
 ```jinja2
-{% for assignment in legalserver_data.assignments %}
-- {{ assignment.user.user_name }} ({{ assignment.type.lookup_value_name }})
+{% for assignment in legalserver_data['assignments'] %}
+- {{ assignment['user']['user_name'] }} ({{ assignment['type']['lookup_value_name'] }})
 {% endfor %}
 ```
 
-### Formatted Income Table
-Display a clean table of all income records:
+### Formatted Income Table (Word/DOCX)
+When automating a table in a Word template, use the `tr` (table row) control tags. Place the `for` and `endfor` tags in their own standalone rows:
 
-```jinja2
 | Type | Amount | Period |
 | :--- | :--- | :--- |
-{% for income in legalserver_data.incomes %}
-| {{ income.type.lookup_value_name }} | {{ income.amount }} | {{ income.period }} |
-{% endfor %}
-```
+| `{%tr for income in legalserver_data['incomes'] %}` | | |
+| `{{ income['type']['lookup_value_name'] }}` | `{{ income['amount'] }}` | `{{ income['period'] }}` |
+| `{%tr endfor %}` | | |
+
+:::tip
+In Word templates, the `{%tr %}` tag ensures that the entire row is repeated or removed based on the data, maintaining the table's structure.
+:::
 
 ### Accessing Nested Client Data
 Access specific parts of a nested object, like the home city:
 
 ```jinja2
-{{ legalserver_data.client_address_home.city }}
+{{ legalserver_data['client_address_home']['city'] }}
 ```
 
 ---
