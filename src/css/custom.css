@@ -1,0 +1,46 @@
+/**
+ * Any CSS included here will be global. The toolkit-clean theme
+ * uses Infima as a design system. For more information, check the
+ * Infima website: https://infima.dev/
+ */
+
+/* These values are the default from Docusaurus classic theme */
+:root {
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-code-padding-horizontal: 0.1rem;
+  --ifm-code-padding-vertical: 0.1rem;
+  --ifm-code-copy-button-display: none;
+}
+
+/* For dark mode */
+[data-theme='dark'] {
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #93c5fd;
+  --ifm-color-primary-lighter: #bfdbfe;
+  --ifm-color-primary-lightest: #dbeafe;
+}
+
+/* Custom spacing for landing page sections */
+.landing-section {
+  padding: 4rem 0;
+}
+
+.landing-section h2 {
+  margin-bottom: 2.5rem;
+}
+
+/* Button contrast improvements */
+.button--outline.button--secondary:hover {
+  background-color: var(--ifm-color-primary-darkest) !important;
+  color: #fff !important;
+  border-color: var(--ifm-color-primary-darkest) !important;
+}
