@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
     # Review gh actions docs if you want to further restrict usage to certain paths
     # paths:
     #   - 'docs/**'
