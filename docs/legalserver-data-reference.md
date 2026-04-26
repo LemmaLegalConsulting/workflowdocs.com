@@ -2,11 +2,11 @@
 
 The `legalserver_data` variable is a raw Python dictionary containing all case details fetched from the LegalServer API. 
 
-While Jinja2 (the template language) often allows you to use "dot notation" (e.g., `legalserver_data.case_number`), the canonical way to access dictionary keys is using **bracket notation**: `{{ legalserver_data['case_number'] }}`. This is required if you are writing logic in a Python `code` block.
+**Important:** Because this is a standard dictionary, you must use **bracket notation** (e.g., `legalserver_data['case_number']`) to access its keys. The standard "dot notation" (e.g., `legalserver_data.case_number`) will not work.
 
 ## Common Object Structures
 
-Many fields in `legalserver_data` return nested dictionaries or objects.
+Many fields in `legalserver_data` return nested dictionaries. Use the following keys to access their attributes:
 
 ### 1. Lookup Values
 Fields representing a selection from a LegalServer lookup table (dropdown) return a dictionary with these keys:
@@ -114,40 +114,40 @@ These fields contain lists of related records. Use `for` loops to iterate throug
 
 ### `assignments`
 A list of staff members assigned to the case.
-- `user`: User object.
-- `type`: Lookup (e.g., "Primary", "Co-counsel").
-- `start_date`, `end_date`: Assignment dates.
+- `['user']`: User dictionary.
+- `['type']`: Lookup dictionary (e.g., "Primary", "Co-counsel").
+- `['start_date']`, `['end_date']`: Assignment dates.
 
 ### `notes`
 The case notes/history.
-- `subject`: The note title.
-- `body`: The content (may contain HTML).
-- `created_by`: User object.
-- `date_posted`: ISO date.
-- `note_type`: Lookup (e.g., "Case Notes", "General Notes").
-- `is_html`: Boolean indicating if the body is HTML.
+- `['subject']`: The note title.
+- `['body']`: The content (may contain HTML).
+- `['created_by']`: User dictionary.
+- `['date_posted']`: ISO date.
+- `['note_type']`: Lookup dictionary.
+- `['is_html']`: Boolean.
 
 ### `incomes`
 List of income records.
-- `amount`: Formatted string (e.g., "$0.01").
-- `period`: String (e.g., "Weekly").
-- `type`: Lookup (e.g., "Employment", "Other").
-- `exclude`: Boolean.
+- `['amount']`: Formatted string (e.g., "$0.01").
+- `['period']`: String (e.g., "Weekly").
+- `['type']`: Lookup dictionary.
+- `['exclude']`: Boolean.
 
 ### `documents`
 Files attached to the LegalServer record.
-- `name`: The file name.
-- `title`: The document title.
-- `download_url`: Path to download the file.
+- `['name']`: The file name.
+- `['title']`: The document title.
+- `['download_url']`: Path to download the file.
 
 ### `contacts`
 Litigation or case contacts.
-- `first`, `last`: Contact name.
-- `phone_business`: Work number.
-- `case_contact_type`: Lookup.
+- `['first']`, `['last']`: Contact name.
+- `['phone_business']`: Work number.
+- `['case_contact_type']`: Lookup dictionary.
 
 ### `associated_cases`
 Other cases linked to this client or matter.
-- `matter_identification_number`: The case number.
-- `matter`: The case title.
-- `matter_uuid`: Unique ID.
+- `['matter_identification_number']`: The case number.
+- `['matter']`: The case title.
+- `['matter_uuid']`: Unique ID.
