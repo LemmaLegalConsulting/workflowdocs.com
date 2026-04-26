@@ -15,5 +15,6 @@ Select the guide most relevant to your role:
 - **Integrated with LegalServer**: Launch interviews and save documents directly to the case file.
 - **Smart Templates**: Use AI to draft templates and logic.
 - **Client Engagement**: Secure e-signatures and document uploads.
-- **AI-Powered**: Generate one-off documents and follow-up questionnaires using enterprise-grade AI.
+- **AI-Powered**: Generate one-off documents and follow-up questionnaires using **Microsoft Azure AI** with enterprise-grade privacy.
+- **Secure & Private**: Data is encrypted at rest and in transit. [Learn more about our security standards](/security).
 - **Onboarding Support**: Start off on the right foot with 3 key templates custom automated for you at no extra cost (up to 15 fields per template).
