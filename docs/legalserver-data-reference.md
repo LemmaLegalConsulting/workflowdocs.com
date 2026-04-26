@@ -31,6 +31,39 @@ Fields representing a staff member or user return an object with these attribute
 
 ---
 
+## Usage Examples (Jinja2)
+
+Use these snippets as a guide for accessing deep attributes and looping through lists in your templates.
+
+### Looping through Assignments
+Display a list of all staff members and their assignment types:
+
+```jinja2
+{% for assignment in legalserver_data.assignments %}
+- {{ assignment.user.user_name }} ({{ assignment.type.lookup_value_name }})
+{% endfor %}
+```
+
+### Formatted Income Table
+Display a clean table of all income records:
+
+```jinja2
+| Type | Amount | Period |
+| :--- | :--- | :--- |
+{% for income in legalserver_data.incomes %}
+| {{ income.type.lookup_value_name }} | {{ income.amount }} | {{ income.period }} |
+{% endfor %}
+```
+
+### Accessing Nested Client Data
+Access specific parts of a nested object, like the home city:
+
+```jinja2
+{{ legalserver_data.client_address_home.city }}
+```
+
+---
+
 ## Key Case Objects
 
 ### Core Case Details
