@@ -28,6 +28,7 @@ const sidebars: SidebarsConfig = {
       ],
     },
     'template-author-guide',
+    'template-library',
     'responsive-language',
     'template-variables',
     'full-variable-list',
