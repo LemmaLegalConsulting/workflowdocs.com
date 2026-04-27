@@ -14,7 +14,19 @@ const sidebars: SidebarsConfig = {
   // By default, Docusaurus generates a sidebar from the docs folder structure
   tutorialSidebar: [
     'intro',
-    'advocate-guide',
+    {
+      type: 'category',
+      label: 'Advocate Guide',
+      link: {
+        type: 'doc',
+        id: 'advocate-guide',
+      },
+      items: [
+        'assemble-documents',
+        'request-documents',
+        'send-questionnaire',
+      ],
+    },
     'template-author-guide',
     'responsive-language',
     'template-variables',

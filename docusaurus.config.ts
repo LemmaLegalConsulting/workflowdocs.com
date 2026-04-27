@@ -80,6 +80,11 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
+        {
+          to: '/docs/advocate-guide',
+          label: 'Advocate Guide',
+          position: 'left',
+        },
         {to: '/about', label: 'About', position: 'left'},
         {to: '/security', label: 'Security', position: 'left'},
         {to: '/pricing', label: 'Pricing', position: 'left'},
