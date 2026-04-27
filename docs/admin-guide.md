@@ -48,6 +48,6 @@ To request **Administrator** or **Template Author** permissions for yourself or 
 
 ## 4. System Tools
 
-- [**Template Manager**](https://app.workflowdocs.com/wfd/manager)
+- [**Template Manager**](https://app.workflowdocs.com/wfd/template-manager)
 - [**Template Editor**](https://app.workflowdocs.com/wfd/docx-labeler)
 - [**Admin Dashboard**](https://app.workflowdocs.com/wfd/admin)
