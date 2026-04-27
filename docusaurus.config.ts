@@ -68,7 +68,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/workflowdocs_logo_wordmark.png',
     navbar: {
-      title: 'Workflow Docs',
+      title: '',
       logo: {
         alt: 'Workflow Docs Logo',
         src: 'img/workflowdocs_logo_wordmark.svg',
@@ -79,11 +79,6 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Documentation',
-        },
-        {
-          to: '/docs/advocate-guide',
-          label: 'Advocate Guide',
-          position: 'left',
         },
         {to: '/about', label: 'About', position: 'left'},
         {to: '/security', label: 'Security', position: 'left'},
