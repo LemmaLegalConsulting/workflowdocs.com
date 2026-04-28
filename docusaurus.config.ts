@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Workflow Docs',
-  tagline: 'A client-friendly, staff-ready way to build smarter legal documents, integrated directly into LegalServer.',
+  tagline: 'Smarter legal documents, integrated directly into LegalServer.',
   favicon: 'img/favicon.ico',
 
   future: {

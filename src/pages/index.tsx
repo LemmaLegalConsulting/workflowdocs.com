@@ -10,11 +10,17 @@ import styles from './index.module.css';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)} style={{backgroundColor: '#2563eb'}}>
+    <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
+        <div className={styles.heroTitleRow}>
+          <Heading as="h1" className="hero__title">
+            {siteConfig.title}
+          </Heading>
+          <Link to="https://lemmalegal.com" className={styles.lemmaAttribution}>
+            <span className={styles.lemmaAttrText}>by</span>
+            <img src="/img/lemma_logo_white.svg" alt="Lemma Legal" className={styles.lemmaAttrLogo} />
+          </Link>
+        </div>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
@@ -63,6 +69,28 @@ export default function Home(): ReactNode {
       title={`${siteConfig.title}`}
       description={siteConfig.tagline}>
       <HomepageHeader />
+      <section className={styles.pullQuote}>
+        <div className="container">
+          <figure className={styles.pullQuoteFigure}>
+            <div className={styles.pullQuoteDecorOpen}>&ldquo;</div>
+            <blockquote className={styles.pullQuoteText}>
+              WorkflowDocs lets you automate powerful documents straight from your case management system, without the complex interview build process.
+            </blockquote>
+            <div className={styles.pullQuoteDecorClose}>&rdquo;</div>
+            <figcaption className={styles.pullQuoteAttribution}>
+              <img
+                src="/img/quinten_steenhuis.jpg"
+                alt="Quinten Steenhuis"
+                className={styles.pullQuoteAvatar}
+              />
+              <div>
+                <strong>Quinten Steenhuis</strong>
+                <span>Founder, WorkflowDocs and LemmaLegal</span>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
       <main>
         <section className={clsx('landing-section', styles.features)}>
           <div className="container">
@@ -70,18 +98,18 @@ export default function Home(): ReactNode {
               <div className={clsx('col col--4')}>
                 <div className="text--center">
                   <Heading as="h3">Smart templates</Heading>
-                  <p>Dynamic logic shows only what matters. No full questionnaire build required. AI tools help you draft templates in one click.</p>
+                  <p>Dynamic logic shows only what matters. No full questionnaire build required. AI tools help you draft templates in one click, with the full power of Docassemble.</p>
                 </div>
               </div>
               <div className={clsx('col col--4')}>
                 <div className="text--center">
-                  <Heading as="h3">Generate on the fly</Heading>
-                  <p>No template? No problem. Use AI to generate custom documents directly from your case data.</p>
+                  <Heading as="h3">AI drafting when you want it</Heading>
+                  <p>No template? No problem. Use closed AI to generate custom documents anchored on your case data.</p>
                 </div>
               </div>
               <div className={clsx('col col--4')}>
                 <div className="text--center">
-                  <Heading as="h3">Document collection</Heading>
+                  <Heading as="h3">Document and signature collection</Heading>
                   <p>Need a document? No problem. Send your client an easy upload link and get documents back in the case file in minutes.</p>
                 </div>
               </div>
