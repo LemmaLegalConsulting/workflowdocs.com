@@ -30,6 +30,7 @@ Access individual items using index notation (e.g., `{{ clients[0] }}`, `{{ witn
 | Variable | Description |
 |---|---|
 | `clients` | Primary client(s). |
+| `users`   | Legacy (AssemblyLine compatible) variable name, generally equivalent to `clients`; prefer using `clients` |
 | `other_parties` | Other parties on the case. |
 | `plaintiffs` / `defendants` | Parties in litigation. |
 | `petitioners` / `respondents` | Parties in family or probate matters. |
@@ -114,11 +115,11 @@ Addresses can be accessed for any individual or list item using these attributes
 |---|---|
 | `trial_court_address` | Address of the trial court. |
 | `appeals_court_address` | Address of the appeals court. |
-| `users[i].address` | Primary address. |
-| `users[i].mailing_address` | Mailing address. |
-| `users[i].service_address` | Address for service of process. |
-| `users[i].previous_addresses` | List of previous addresses. |
-| `users[i].other_addresses` | List of other addresses. |
+| `clients[i].address` | Primary address. |
+| `clients[i].mailing_address` | Mailing address. |
+| `clients[i].service_address` | Address for service of process. |
+| `clients[i].previous_addresses` | List of previous addresses. |
+| `clients[i].other_addresses` | List of other addresses. |
 
 ---
 
@@ -137,26 +138,26 @@ Addresses can be accessed for any individual or list item using these attributes
 
 ## 5. Personal Information
 
-Available for any `ALIndividual` or item in an `ALPeopleList` (replace `users[i]` with your variable name).
+Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[i]` with your variable name).
 
 | Attribute | Description |
 |---|---|
-| `users[i].name` | The full name object. |
-| `users[i].ssn` | Social Security Number. |
-| `users[i].ssn_last_4` | Last 4 digits of SSN. |
-| `users[i].birthdate` | Date of birth. |
-| `users[i].gender` | Gender. |
-| `users[i].marital_status` | Marital status. |
-| `users[i].email` | Email address. |
-| `users[i].phone_number` | Primary phone. |
-| `users[i].mobile_number` | Mobile phone. |
-| `users[i].fax_number` | Fax number. |
-| `users[i].preferred_language` | Preferred language. |
-| `users[i].pronouns` | Preferred pronouns. |
-| `users[i].aliases` | List of aliases. |
-| `users[i].previous_names` | List of previous names. |
-| `users[i].signature` | Signature object. |
-| `users[i].program` | Associated LegalServer program. |
+| `clients[i].name` | The full name object. |
+| `clients[i].ssn` | Social Security Number. |
+| `clients[i].ssn_last_4` | Last 4 digits of SSN. |
+| `clients[i].birthdate` | Date of birth. |
+| `clients[i].gender` | Gender. |
+| `clients[i].marital_status` | Marital status. |
+| `clients[i].email` | Email address. |
+| `clients[i].phone_number` | Primary phone. |
+| `clients[i].mobile_number` | Mobile phone. |
+| `clients[i].fax_number` | Fax number. |
+| `clients[i].preferred_language` | Preferred language. |
+| `clients[i].pronouns` | Preferred pronouns. |
+| `clients[i].aliases` | List of aliases. |
+| `clients[i].previous_names` | List of previous names. |
+| `clients[i].signature` | Signature object. |
+| `clients[i].program` | Associated LegalServer program. |
 | `signature_date` | The date the document is generated/signed. |
 
 ---
@@ -165,8 +166,8 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `users[i]
 
 | Variable / Attribute | Description |
 |---|---|
-| `users[i].signature` | The signature field/image. |
-| `users[i].states_above_true` | Boolean for affirmation of truth. |
+| `clients[i].signature` | The signature field/image. |
+| `clients[i].states_above_true` | Boolean for affirmation of truth. |
 | `signature_choice` | Method used to sign. |
 | `signature_wait_screen` | Screen shown while waiting for others. |
 | `signature_phone_followup` | Follow-up status for phone signatures. |
