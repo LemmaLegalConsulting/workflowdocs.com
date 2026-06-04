@@ -37,14 +37,14 @@ Administrators can control which interviews are visible on specific LegalServer 
 
 ## 3. Managing Permissions
 
-Workflow Docs permissions are managed by Lemma Legal.
+Workflow Docs permissions are managed by Lemma Legal. A client of WorkflowDocs who wants to be able to manage templates for their organization needs to be given the Docassemble privilege `manage_templates`. This needs to be done by asking the WorkflowDocs team.
 
 ### Requesting Administrative Access
-To request **Administrator** or **Template Author** permissions for yourself or a colleague, please send an email to [**info@lemmalegal.com**](mailto:info@lemmalegal.com) with:
+To request the `manage_templates` privilege or other administrative permissions for yourself or a colleague, please send an email to [**info@lemmalegal.com**](mailto:info@lemmalegal.com) with:
 
 1. The **email address(es)** used to log in to the server.
 2. The **server name** (e.g., `app.workflowdocs.com` or your organization's dedicated host).
-3. The specific roles requested (Admin or Template Author).
+3. The specific privilege requested (e.g., `manage_templates` or Admin).
 
 ## 4. System Tools
 

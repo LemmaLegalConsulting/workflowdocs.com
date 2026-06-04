@@ -52,12 +52,12 @@ You can create and manage templates using our web-based tools:
 
 *Note: If your organization has a dedicated Workflow Docs server, replace `app.workflowdocs.com` with your specific server URL.*
 
-## 3. Permissions & Access
+## 4. Permissions & Access
 
-To manage templates, your account must have **Template Author** or **Administrator** permissions.
+A client of WorkflowDocs who wants to be able to manage templates for their organization needs to be given the Docassemble privilege `manage_templates`, and this needs to be done by asking the WorkflowDocs team.
 
 ### How to request permissions:
-If you cannot access the Template Manager, please send an email to [**info@lemmalegal.com**](mailto:info@lemmalegal.com) with the following details:
+If you cannot access the Template Manager, you can email [**info@lemmalegal.com**](mailto:info@lemmalegal.com) with the following details:
 1. The **email address** you use to log in to LegalServer.
 2. The **server name** or URL that runs your Workflow Docs instance (e.g., `app.workflowdocs.com` or `yourorg.workflowdocs.com`).
 3. Your organization name.
