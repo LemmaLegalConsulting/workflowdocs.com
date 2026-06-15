@@ -36,6 +36,7 @@ AI Questionnaires are generated from a simple prompt and are specific to a singl
 * AI is focused on generating high quality questions and summarizing existing case data, not providing legal advice.
 * Your data is never used for training any AI model.
 * AI features are always optional and clearly labeled.
+* An administrator can also request that we disable AI-powered features for your site.
 
 ## LegalServer integration and pricing
 

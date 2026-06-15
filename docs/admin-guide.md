@@ -51,3 +51,32 @@ To request the `manage_templates` privilege or other administrative permissions 
 - [**Template Manager**](https://app.workflowdocs.com/wfd/template-manager)
 - [**Template Editor**](https://app.workflowdocs.com/wfd/docx-labeler)
 - [**Admin Dashboard**](https://app.workflowdocs.com/wfd/admin)
+
+## Configuring account level settings
+
+Here is an example Docassemble configuration for a WorkflowDocs site:
+
+```yaml
+workflowdocs:
+  clients:
+    legalaid-demo:
+      name: LegalAid Organization
+      organization phone number: (617) 555-1234
+      short name: LSO
+      sms: True
+      storage:
+        type: s3
+        s3 configuration item: lso s3 bucket # Points to separate config entry
+        storage folder: "" # Can be used to point WFD to a sub-folder in S3
+      case management:
+        kind: legalserver
+        endpoint: lso-demo.legalserver.org
+      enable ai draft letter: False # Turns off AI option in "Assemble documents" pathway
+
+lso s3 bucket:
+  bucket: lso-workflowdocs
+  region: us-east-2
+  # IAM User: lso-workflow-docs-user # Good idea to identify the login name associated with access/secret access key in a comment
+  access key id: A........................
+  secret access key: a....................
+```
