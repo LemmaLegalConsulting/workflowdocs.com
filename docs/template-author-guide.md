@@ -47,7 +47,7 @@ Please see the attached identification:
 
 You can create and manage templates using our web-based tools:
 
-- [**Template Manager**](https://app.workflowdocs.com/wfd/manager): Upload, delete, and organize your templates.
+- [**Template Manager**](https://app.workflowdocs.com/wfd/template-manager): Upload, delete, and organize your templates.
 - [**Template Editor (Docx Labeler)**](https://app.workflowdocs.com/wfd/docx-labeler): A visual tool to help you find and insert variables into your Word documents.
 
 *Note: If your organization has a dedicated Workflow Docs server, replace `app.workflowdocs.com` with your specific server URL.*
