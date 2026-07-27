@@ -18,7 +18,7 @@ CLIENT'S CHILDREN:
 For variations within a single line or paragraph, use an inline `if` expression inside curly braces. This does not require a closing tag and should not use the `p` prefix.
 
 ```jinja2
-The client {{ "is" if clients.length == 1 else "are" }} currently residing in...
+The client {{ "is" if clients.number() == 1 else "are" }} currently residing in...
 ```
 
 You can also use standard `{% if %}` tags inside a paragraph if you want to conditionally include text without starting a new paragraph:
@@ -36,6 +36,7 @@ Only use `{%p if %}` when the tag is on its own line and you want to control the
 Workflow Docs follows the standard [Docassemble](https://docassemble.org/docs/objects.html#DAList) and [AssemblyLine](https://assemblyline.suffolklitlab.org/docs/authoring/dynamic_phrasing_based_on_values) methods for handling singular and plural forms. These are **methods** called on an object or list.
 
 ### For Lists (e.g., `clients`, `children`)
+
 - **`.quantity_noun("word")`**: Returns the count and the correctly pluralized word.
   - `{{ children.quantity_noun("child") }}` → "one child" or "three children"
 - **`.as_noun("word")`**: Returns only the word, correctly pluralized based on the list count.
@@ -48,6 +49,7 @@ Workflow Docs follows the standard [Docassemble](https://docassemble.org/docs/ob
   - `{{ clients.possessive("address") }}` → "client's address" or "clients' address"
 
 ### For Individuals (e.g., `clients[0]`, `spouse`)
+
 - **`.possessive()`**: Adds an apostrophe-s to an individual's name.
   - `{{ clients[0].possessive() }}` → "John's"
 
@@ -64,3 +66,5 @@ You can adjust the casing of any variable using these standard Jinja2 filters:
 - [**Docassemble DAList Documentation**](https://docassemble.org/docs/objects.html#DAList): Core methods for list-based pluralization.
 - [**AssemblyLine: Dynamic Phrasing**](https://assemblyline.suffolklitlab.org/docs/authoring/dynamic_phrasing_based_on_values): A guide on creating grammar-aware templates.
 - [**Authoring DOCX Files**](https://assemblyline.suffolklitlab.org/docs/authoring/docx): Details on using Jinja2 syntax and filters specifically within Word documents.
+
+> **Looking for letter salutations?** Workflow Docs ships with `greet(person)` and `salute(person)` helpers that pick the right greeting word and honorific based on language and gender (or your client's `preferred_greeting` / `preferred_salutation` overrides). See the [Full Variable List → Functions](/docs/full-variable-list#8-functions) for the reference.
