@@ -23,7 +23,7 @@ You need a dedicated API user in LegalServer to authenticate requests from Workf
 1. Create a new User Role (e.g., "Docassemble API") and ensure all "API"-related permissions are checked.
 2. Create a new User (e.g., username `docassembleapi`, Login Active: "No") assigned to this role.
 3. Edit the user's profile to add the "Manage Personal Access Tokens" block.
-4. Generate a Personal Access Token (labeled "Workflowdocs"). _Note: Tokens expire after one year and must be rotated._
+4. Generate a Personal Access Token (labeled "Workflowdocs").
 
 ### Connecting the Dashboard
 

@@ -89,7 +89,7 @@ Most action values are sent through to LegalServer literally. Values that begin 
 | `@now(US/Eastern)` | Current timestamp in the named timezone (uses Python's `zoneinfo`).                                                                 |
 | `@variable.name`   | Resolves the root with Docassemble's `value()`, then follows simple dot-only attributes. It does not index lists or call functions. |
 
-The `@` matcher is `fullmatch`-based, so an email address like `user@example.com` is never mistaken for a variable reference. Only strings that are _entirely_ `@something` are resolved.
+The `@` matcher is `fullmatch`-based, so an email address like `user@example.com` is never mistaken for a variable reference. Only strings that are **entirely** `@something` are resolved.
 
 ## Worked Examples
 

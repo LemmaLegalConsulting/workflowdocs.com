@@ -36,8 +36,7 @@ On the request screen, you'll fill in the recipient and notification details.
 - **Request documents via**:
   - **Email** — sends a single email with a secure upload link.
   - **SMS** — sends a single text message with the link.
-  - **Email and SMS** — sends to both channels.
-  - _Note:_ The SMS options only appear if your organization has [SMS enabled](/docs/admin-guide#sms--twilio-configuration).
+  - **Email and SMS** — sends to both channels. _Note:_ The SMS options only appear if your organization has [SMS enabled](/docs/admin-guide#sms--twilio-configuration).
 - **Client email / phone** — defaults are pre-filled from the matter; you can pick another or type a new one.
 
 ### Who should we notify when the request is finished?

@@ -33,8 +33,7 @@ You can also request a document **in-line** as part of an "Assemble Documents" o
 
 For documents that need **signatures from more than one person** — clients, witnesses, attorneys, advocates — use the multi-party signing flow. See the [Multi-Party Signing](/docs/multi-party-signature) guide for the full walkthrough. You can choose **Electronic** (each requestee gets a personal signing link) or **Print** (generate clean printable PDFs/DOCX for paper signatures).
 
-- **Signature Requests**: Send legally binding e-signature requests to clients with a single click.
-  - _Tip:_ If you have a one-off document that isn't a pre-defined template, you can simply upload it during the "Assemble documents" or signature workflow to request a signature quickly.
+- **Signature Requests**: Send legally binding e-signature requests to clients with a single click. _Tip:_ If you have a one-off document that isn't a pre-defined template, you can simply upload it during the "Assemble documents" or signature workflow to request a signature quickly.
 - **Document Collection**: Share secure upload links. Once uploaded, documents appear automatically in the case folder.
   ![Documents in LegalServer](/img/screenshots/generated_documents_appear_in_case_documents_tab.png)
 
@@ -54,4 +53,4 @@ If you do not see the standard options like **Assemble documents**, **Request do
 
 - **Toggle Filters**: In the Workflow Docs modal, you can click **Remove Filters** to show all available workflows, even those not specifically tagged for the current case type.
   ![Remove Filters](/img/screenshots/remove_any_filters.png)
-- **Permanent Changes**: If a specific workflow should _always_ be visible for a certain case type, please ask your **LegalServer Administrator** to update the workflow filters.
+- **Permanent Changes**: If a specific workflow should **always** be visible for a certain case type, please ask your **LegalServer Administrator** to update the workflow filters.
