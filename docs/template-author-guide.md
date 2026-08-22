@@ -45,7 +45,13 @@ Please see the attached identification:
 - **In the Interview**: The client will see a file upload field with your custom question.
 - **In the Template**: Once uploaded, the document's title (or a link to the file) will be inserted exactly where you placed the variable.
 
-## 3. Managing Your Templates
+## 3. PDF Templates
+
+Workflow Docs can fill existing PDF form fields, ask the advocate for missing values, and route fields to clients or other requestees. PDF templates use a companion `.yml` file instead of Jinja expressions inside the document.
+
+See [PDF Templates and Sidecar YAML](/docs/pdf-templates) for setup instructions, a complete sidecar reference, request behavior, conditional fields, output formatting, and troubleshooting.
+
+## 4. Managing Your Templates
 
 You can create and manage templates using our web-based tools:
 
@@ -54,7 +60,7 @@ You can create and manage templates using our web-based tools:
 
 _Note: If your organization has a dedicated Workflow Docs server, replace `app.workflowdocs.com` with your specific server URL._
 
-## 4. Permissions & Access
+## 5. Permissions & Access
 
 A client of WorkflowDocs who wants to be able to manage templates for their organization needs to be given the Docassemble privilege `manage_templates`, and this needs to be done by asking the WorkflowDocs team.
 
