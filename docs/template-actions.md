@@ -6,7 +6,9 @@ sidebar_label: Template Actions
 
 # Template Companion Actions
 
-A predefined S3 DOCX template can have an **optional companion `.yml` file** stored next to the template. In the electronic completion branch, when usable LegalServer launch data is available, Workflow Docs runs supported actions defined in the companion file against the LegalServer matter.
+A predefined DOCX or PDF template can have an **optional companion `.yml` file** stored next to the template. In the electronic completion branch, when usable LegalServer launch data is available, Workflow Docs runs supported actions defined in the companion file against the LegalServer matter.
+
+For PDF templates, the same sidecar also contains the required mapping between PDF form fields and Docassemble variables. See [PDF Templates and Sidecar YAML](/docs/pdf-templates) for the complete `fields` reference.
 
 This is the simplest way to update matter fields, mark compliance flags, or create a case note — all triggered automatically when a document is finalized.
 

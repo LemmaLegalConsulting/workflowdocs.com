@@ -38,6 +38,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'template-variables',
         'request-filter',
+        'pdf-templates',
         'responsive-language',
         'template-actions',
         'link-enclosures',
