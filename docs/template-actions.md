@@ -170,4 +170,4 @@ Companion actions run using the LegalServer API token configured for your site. 
 ## Further Reading
 
 - [Assemble Documents Workflow](/docs/assemble-documents) — when actions run in the flow.
-- [Administrator Guide → LegalServer Integration](/docs/admin-guide#legalserver-integration) — setting up the API token.
+- [Administrator Guide → LegalServer Integration](/docs/admin-guide#1-legalserver-integration) — setting up the API token.
