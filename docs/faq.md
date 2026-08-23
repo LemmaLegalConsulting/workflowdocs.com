@@ -42,7 +42,7 @@ AI Questionnaires are generated from a simple prompt and are specific to a singl
 - Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms.
 - AI features are always optional and clearly labeled.
 - An administrator can also request that we disable AI-powered features for your site.
-- The "Create an AI draft letter" option in the **Assemble documents** workflow can be hidden per organization by setting `enable ai draft letter: false` in the [client configuration](/docs/admin-guide#client-level-configuration).
+- The "Create an AI draft letter" option in the **Assemble documents** workflow can be hidden per organization by setting `enable ai draft letter: false` in the [client configuration](/docs/admin-guide#5-client-level-configuration).
 
 ## LegalServer integration and pricing
 

@@ -135,7 +135,7 @@ Older Workflow Docs versions supported Microsoft SharePoint and Box as storage b
 To use any SMS-based workflow (e.g. "Send link via text message" in [Request Documents](/docs/request-documents) or [Send Questionnaire](/docs/send-questionnaire)), you need to:
 
 1. Configure Twilio at the server level.
-2. Set `sms: True` in the per-client config (see [Client-Level Configuration](#client-level-configuration)).
+2. Set `sms: True` in the per-client config (see [Client-Level Configuration](#5-client-level-configuration)).
 
 #### Twilio Config — Single Tenant
 

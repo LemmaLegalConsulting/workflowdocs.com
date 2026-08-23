@@ -43,7 +43,7 @@ If you select **Create an AI draft letter**:
 
 - The system processes the case context (and any fields you choose) and generates a draft using the configured AI provider. Workflow Docs typically uses Azure OpenAI Service; server administrators may configure OpenAI directly.
 - You can ask the AI to revise the draft before finalizing.
-- This option is hidden if your organization has disabled it (see [Administrator Guide → Client Configuration](/docs/admin-guide#client-level-configuration)).
+- This option is hidden if your organization has disabled it (see [Administrator Guide → Client Configuration](/docs/admin-guide#5-client-level-configuration)).
 
 ---
 
@@ -114,7 +114,7 @@ After all variables are confirmed, click **Next**.
 For both modes, when the LegalServer upload toggle is on and usable LegalServer launch data is available, the generated documents and relevant requested uploads are bundled into a ZIP and uploaded to the LegalServer case file as a documents-tab entry. The LegalServer upload PDF setting controls the format of generated documents inside that ZIP; requestee uploads retain their original format.
 
 :::note
-Your administrator can choose whether generated documents inside the ZIP are **PDF** or **DOCX** with the `legalserver upload pdf` setting. Uploaded supporting files retain their original formats. This setting does not change the download options shown in Workflow Docs. See [Administrator Guide → Client Configuration](/docs/admin-guide#client-level-configuration).
+Your administrator can choose whether generated documents inside the ZIP are **PDF** or **DOCX** with the `legalserver upload pdf` setting. Uploaded supporting files retain their original formats. This setting does not change the download options shown in Workflow Docs. See [Administrator Guide → Client Configuration](/docs/admin-guide#5-client-level-configuration).
 :::
 
 ### Working with Many Templates
