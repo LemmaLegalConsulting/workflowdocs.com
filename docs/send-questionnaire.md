@@ -32,7 +32,7 @@ If SMS is not enabled, the SMS-only fields are hidden and the link is only sent 
 
 ## Step 2: Write the Question
 
-The **What do you want to ask the client?** screen shows 3–5 generic AI-generated suggestions when available. Pick one, or choose **Custom question** and write your own. You can also optionally set:
+For a LegalServer-launched questionnaire, the **What do you want to ask the client?** screen shows 3–5 generic AI-generated suggestions when available. Pick one, or choose **Custom question** and write your own. If you launch the standalone version without LegalServer matter data, the workflow asks for a custom question directly. You can also optionally set:
 
 - **What makes a complete answer?** — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
 
@@ -74,7 +74,7 @@ The system typically uses Azure OpenAI Service to:
 - Generate follow-up questions based on the client's responses.
 - Synthesize a final summary of the conversation.
 
-Advocate setup suggestions are generic and do not use LegalServer matter data.
+When suggestions are shown, they are generic and do not use LegalServer matter data. The standalone version skips suggestions and asks for a custom question directly.
 
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms. Template auto-labeling can use Google Gemini.
 
