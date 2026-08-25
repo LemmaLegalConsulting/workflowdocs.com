@@ -30,15 +30,21 @@ When the interview launches, the **advocate setup flow** starts with the **Ready
 If SMS is not enabled, the SMS-only fields are hidden and the link is only sent by email. If you can't turn off the SMS question, ask your administrator to enable SMS in the [client configuration](/docs/admin-guide#sms--twilio-configuration).
 :::
 
-## Step 2: Write the Question
+## Step 2: Choose AI Background Fields
 
-For a LegalServer-launched questionnaire, the **What do you want to ask the client?** screen shows 3–5 generic AI-generated suggestions when available. Pick one, or choose **Custom question** and write your own. If you launch the standalone version without LegalServer matter data, the workflow asks for a custom question directly. You can also optionally set:
+For a LegalServer-launched questionnaire, the **What case details should the AI use?** screen lets you decide whether the suggestion generator may use matter data. If enabled, select the common fields to share and optionally turn on **Show all fields** to choose additional fields. Configured LegalServer custom fields are included when case details are enabled.
+
+If you do not provide case details, the suggestions are generic. If you launch the standalone version without LegalServer matter data, this screen is skipped and the workflow asks for a custom question directly.
+
+## Step 3: Write the Question
+
+The **What do you want to ask the client?** screen shows 3–5 AI-generated suggestions when available. Pick one, or choose **Custom question** and write your own. You can also optionally set:
 
 - **What makes a complete answer?** — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
 
 The system pre-generates a **structured questionnaire** with fields, labels, and choices for the question, then shows a **Review your questionnaire** screen so you can go back and adjust before sending.
 
-## Step 3: Review and Send
+## Step 4: Review and Send
 
 On the review screen, confirm the generated questionnaire. Clicking **Next** sends the link by email and/or SMS and shows a **Please wait** screen. The link is valid for **72 hours**.
 
@@ -74,7 +80,7 @@ The system typically uses Azure OpenAI Service to:
 - Generate follow-up questions based on the client's responses.
 - Synthesize a final summary of the conversation.
 
-When suggestions are shown, they are generic and do not use LegalServer matter data. The standalone version skips suggestions and asks for a custom question directly.
+For LegalServer-launched questionnaires, the selected matter fields are sent to the AI only to generate advocate-facing suggestions. If matter data is disabled, the suggestions are generic. The standalone version skips suggestions and asks for a custom question directly.
 
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms. Template auto-labeling can use Google Gemini.
 

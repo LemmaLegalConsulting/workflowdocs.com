@@ -236,6 +236,21 @@ Administrators can:
 - **Disable AI letter drafting per client** with `enable ai draft letter: False` in the per-client config. The questionnaire and auto-labeling features are not affected.
 - **Disable all AI for a site** by contacting Workflow Docs support to disable AI features at the server level.
 
+#### Questionnaire AI Background Fields
+
+For a LegalServer-launched questionnaire, the advocate controls which matter fields are sent to the AI for generating suggested questions. The advocate can disable matter data, select common fields, and optionally select additional fields from the matter payload. Configured LegalServer custom fields are retrieved with the matter and included when matter data is enabled.
+
+Configure custom fields under `workflowdocs.legalserver.custom fields`:
+
+```yaml
+workflowdocs:
+  legalserver:
+    custom fields:
+      - problem_statement_130
+```
+
+These fields are also available to other LegalServer data consumers. The questionnaire sends selected fields only for advocate-facing suggestion generation; they are not sent to the client.
+
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms.
 
 ### Complete Example
