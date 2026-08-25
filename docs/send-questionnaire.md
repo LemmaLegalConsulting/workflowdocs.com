@@ -32,7 +32,7 @@ If SMS is not enabled, the SMS-only fields are hidden and the link is only sent 
 
 ## Step 2: Write the Question
 
-The **What do you want to ask the client?** screen shows a few generic AI suggestions. Pick one, or choose **Custom question** and write your own. You can also optionally set:
+The **What do you want to ask the client?** screen shows 3–5 generic AI-generated suggestions when available. Pick one, or choose **Custom question** and write your own. You can also optionally set:
 
 - **What makes a complete answer?** — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
 
