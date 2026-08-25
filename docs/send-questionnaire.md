@@ -29,7 +29,7 @@ When the interview launches, the **advocate setup flow** starts with the **Ready
 
 | Setting | LegalServer data the AI sees |
 | ------- | ---------------------------- |
-| None | no matter data |
+| None | no matter data — the AI still suggests questions, but they are generic rather than personalized |
 | Basic case information | case number, title, type, legal problem category, status / disposition, and opened, rejected, and closed dates |
 | Case information and parties | the above plus the client's name, email, address, and phone, adverse and non-adverse parties, and litigations |
 | Case information, parties, and notes | the above plus the case notes |
@@ -43,9 +43,9 @@ If SMS is not enabled, the SMS-only fields are hidden and the link is only sent 
 
 Next, you choose what to ask the client:
 
-- **I already know what to ask (optional)** — type your own question to use it directly. Example: _"Tell us more about the unsafe conditions in your apartment."_
+- **Pick a suggested question** — if you leave the question blank, the system uses AI to suggest **3–5 open-ended follow-up questions** for the client. The **AI background field set** you chose in Step 1 controls what matter data, if any, the AI sees: with **None** it generates generic intake questions, and with the richer presets it personalizes them to the case. Pick one of the suggestions.
+- **Custom question** — choose **Custom question** from the suggestions screen to write your own, or type it up front in the **I already know what to ask (optional)** box (doing so skips the AI suggestions). Example: _"Tell us more about the unsafe conditions in your apartment."_
 - **What makes a complete answer?** (optional) — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
-- If you leave the question blank, the system uses the **AI background field set** you chose in Step 1 and suggests **3–5 open-ended follow-up questions** tailored to the matter. Pick one of the suggestions, or choose **Custom question** to write your own.
 
 The system pre-generates a **structured questionnaire** with fields, labels, and choices for the question, then shows a **Review your questionnaire** screen so you can go back and adjust before sending.
 
