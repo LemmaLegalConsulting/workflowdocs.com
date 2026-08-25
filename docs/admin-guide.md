@@ -83,8 +83,8 @@ Workflow Docs is **multi-tenant**. Each LegalServer site you serve has its own e
 | `languages`                 | all 8 supported                                    | Subset of client languages to offer for this organization.                                                                     |
 | `exitpage`                  | server default                                     | URL the client is sent to when they press an "Exit" button or otherwise leave the interview.                                   |
 | `storage`                   | none                                               | Storage backend for templates, companion files, and enclosure YAML.                                                            |
-| `enable ai questionnaire`   | `True`                                             | When `False`, the "AI background field set" selector is hidden in the Send Questionnaire workflow and suggestions are generated without LegalServer background data. |
-| `questionnaire default ai field set` | `case_information`                        | Default preset for the Send Questionnaire workflow's "AI background field set": `none`, `case_information`, `case_information_and_parties`, `case_information_and_parties_and_notes`, or `everything`. |
+| `enable ai questionnaire`   | `True`                                             | When `False`, the AI suggestions selector is hidden and the workflow skips AI suggestions entirely (the advocate writes the question directly). |
+| `questionnaire default ai field set` | `case_information`                        | Default preset for the Send Questionnaire workflow's "AI suggestions" selector: `none`, `case_information`, `case_information_and_parties`, `case_information_and_parties_and_notes`, `everything`, or `skip_suggestions`. |
 
 ### Resolution Order
 
@@ -236,12 +236,12 @@ Workflow Docs typically uses **Azure OpenAI Service** for:
 Administrators can:
 
 - **Disable AI letter drafting per client** with `enable ai draft letter: False` in the per-client config. The questionnaire and auto-labeling features are not affected.
-- **Disable the questionnaire AI background selector per client** with `enable ai questionnaire: False` in the per-client config and change the default preset with `questionnaire default ai field set` (see [Client-Level Configuration](#5-client-level-configuration)).
+- **Disable the questionnaire AI suggestions per client** with `enable ai questionnaire: False` in the per-client config (the workflow skips AI suggestions and advocates write the question directly) and change the default preset with `questionnaire default ai field set` (see [Client-Level Configuration](#5-client-level-configuration)).
 - **Disable all AI for a site** by contacting Workflow Docs support to disable AI features at the server level.
 
 #### Questionnaire AI Background Fields
 
-The Send Questionnaire workflow can use LegalServer matter data as background context when suggesting questions. The advocate picks how much data to include from the **AI background field set** dropdown on the first screen (see [Send Client a Questionnaire](/docs/send-questionnaire)). The `case_information_and_parties` preset and every richer preset also include the server-level `custom fields` list, so you can extend those presets with your own intake screens:
+The Send Questionnaire workflow can use LegalServer matter data as background context when suggesting questions. The advocate picks how the AI behaves from the **AI suggestions** dropdown on the first screen (skip suggestions entirely, or use matter data to personalize them - see [Send Client a Questionnaire](/docs/send-questionnaire)). The `case_information_and_parties` preset and every richer preset also include the server-level `custom fields` list, so you can extend those presets with your own intake screens:
 
 ```yaml
 workflowdocs:
@@ -271,8 +271,8 @@ workflowdocs:
 
       # Feature toggles
       enable ai draft letter: True # Default True. Set False to hide the AI draft letter option from "Assemble documents"
-      enable ai questionnaire: True # Default True. Set False to hide the AI background selector on the Send Questionnaire workflow
-      questionnaire default ai field set: case_information # Default. One of: none, case_information, case_information_and_parties, case_information_and_parties_and_notes, everything
+      enable ai questionnaire: True # Default True. Set False to skip AI suggestions on the Send Questionnaire workflow
+      questionnaire default ai field set: case_information # Default. One of: none, case_information, case_information_and_parties, case_information_and_parties_and_notes, everything, skip_suggestions
       legalserver upload pdf: False # Default False. True selects PDF instead of DOCX for generated documents in the LegalServer ZIP; supporting files keep their original formats.
       sms: True # Required True to enable any SMS / Twilio workflow for this client
 

@@ -25,31 +25,34 @@ When the interview launches, the **advocate setup flow** starts with the **Ready
 - **Advocate email address** — the address that should receive the completed summary.
 - **Language for the questionnaire** — pick from your organization's [supported languages](/docs/admin-guide#languages). The default is the client's preferred written language.
 - **Save responses to LegalServer?** — when on, the workflow writes back to the matter: a "questionnaire sent" case note, the completed-responses case note, and any client-uploaded documents. When off, nothing is written to LegalServer.
-- **AI background field set** — (shown only when the interview is launched from a LegalServer matter and AI questionnaires are enabled for your organization) choose how much LegalServer matter data the AI may use to personalize its suggested questions:
+- **AI suggestions** — this is where the AI is controlled for this questionnaire. (Shown only when the interview is launched from a LegalServer matter and AI questionnaires are enabled for your organization.)
 
-| Setting | LegalServer data the AI sees |
-| ------- | ---------------------------- |
-| None | no matter data — the AI still suggests questions, but they are generic rather than personalized |
-| Basic case information | case number, title, type, legal problem category, status / disposition, and opened, rejected, and closed dates |
-| Case information and parties | the above plus the client's name, email, address, and phone, adverse and non-adverse parties, and litigations |
-| Case information, parties, and notes | the above plus the case notes |
-| Everything (all case details) | a curated copy of the matter details (excluding bulky file/document payloads and the most sensitive personal identifiers) |
+| Setting | What happens |
+| ------- | ------------ |
+| Skip AI suggestions | No AI suggestions — the questionnaire is still sent, but you write the question yourself |
+| None | The AI suggests questions, but it sees no matter data, so they are generic rather than personalized |
+| Basic case information | The AI suggests questions using the case number, title, type, legal problem category, status / disposition, and opened, rejected, and closed dates |
+| Case information and parties | The above plus the client's name, email, address, and phone, adverse and non-adverse parties, and litigations |
+| Case information, parties, and notes | The above plus the case notes |
+| Everything (all case details) | A curated copy of the matter details (excluding bulky file/document payloads and the most sensitive personal identifiers) |
 
 :::tip
 If SMS is not enabled, the SMS-only fields are hidden and the link is only sent by email. If you can't turn off the SMS question, ask your administrator to enable SMS in the [client configuration](/docs/admin-guide#sms--twilio-configuration).
 :::
 
-## Step 2: Compose Your Question
+## Step 2: Pick a Suggested Question
 
-On the **What do you want to ask the client?** screen, pick one of the AI-suggested questions:
+If you didn't choose **Skip AI suggestions**, the **What do you want to ask the client?** screen shows **3–5 AI-generated questions** tailored to the matter (generic when the **AI suggestions** setting is **None**). Pick one of the suggestions.
 
-- **Pick a suggested question** — the system uses AI to suggest **3–5 open-ended follow-up questions** for the client. The **AI background field set** you chose in Step 1 controls what matter data, if any, the AI sees: with **None** it generates generic intake questions, and with the richer presets it personalizes them to the case.
-- **None of the above** — select this radio option to write your own question instead; the write-in box appears on the same screen. Example: _"Tell us more about the unsafe conditions in your apartment."_
+## Step 3: Finalize Your Question
+
+On the **Your question to the client** screen, the question is filled in for you — the suggestion you picked, or blank if you chose **Skip AI suggestions**. You can edit it or write a different question, and optionally set:
+
 - **What makes a complete answer?** (optional) — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
 
 The system pre-generates a **structured questionnaire** with fields, labels, and choices for the question, then shows a **Review your questionnaire** screen so you can go back and adjust before sending.
 
-## Step 3: Review and Send
+## Step 4: Review and Send
 
 On the review screen, confirm the generated questionnaire. Clicking **Next** sends the link by email and/or SMS and shows a **Please wait** screen. The link is valid for **72 hours**.
 
@@ -85,7 +88,7 @@ The system typically uses Azure OpenAI Service to:
 - Generate follow-up questions based on the client's responses.
 - Synthesize a final summary of the conversation.
 
-When you select an **AI background field set**, the chosen LegalServer matter data is included in the suggestion request so the questions can be personalized to the case.
+When you use the **AI suggestions** setting, the chosen LegalServer matter data is included in the suggestion request so the questions can be personalized to the case.
 
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms. Template auto-labeling can use Google Gemini.
 
