@@ -41,10 +41,10 @@ If SMS is not enabled, the SMS-only fields are hidden and the link is only sent 
 
 ## Step 2: Compose Your Question
 
-Next, you choose what to ask the client:
+On the **What do you want to ask the client?** screen, pick one of the AI-suggested questions:
 
-- **Pick a suggested question** — if you leave the question blank, the system uses AI to suggest **3–5 open-ended follow-up questions** for the client. The **AI background field set** you chose in Step 1 controls what matter data, if any, the AI sees: with **None** it generates generic intake questions, and with the richer presets it personalizes them to the case. Pick one of the suggestions.
-- **Custom question** — choose **Custom question** from the suggestions screen to write your own, or type it up front in the **I already know what to ask (optional)** box (doing so skips the AI suggestions). Example: _"Tell us more about the unsafe conditions in your apartment."_
+- **Pick a suggested question** — the system uses AI to suggest **3–5 open-ended follow-up questions** for the client. The **AI background field set** you chose in Step 1 controls what matter data, if any, the AI sees: with **None** it generates generic intake questions, and with the richer presets it personalizes them to the case.
+- **None of the above** — select this radio option to write your own question instead; the write-in box appears on the same screen. Example: _"Tell us more about the unsafe conditions in your apartment."_
 - **What makes a complete answer?** (optional) — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
 
 The system pre-generates a **structured questionnaire** with fields, labels, and choices for the question, then shows a **Review your questionnaire** screen so you can go back and adjust before sending.
