@@ -83,6 +83,7 @@ Workflow Docs is **multi-tenant**. Each LegalServer site you serve has its own e
 | `languages`                 | all 8 supported                                    | Subset of client languages to offer for this organization.                                                                     |
 | `exitpage`                  | server default                                     | URL the client is sent to when they press an "Exit" button or otherwise leave the interview.                                   |
 | `storage`                   | none                                               | Storage backend for templates, companion files, and enclosure YAML.                                                            |
+| `questionnaire default ai field set` | `case_information`                        | Default preset for the Send Questionnaire workflow: `none`, `case_information`, `case_information_and_parties`, `case_information_and_parties_and_notes`, or `everything`. |
 
 ### Resolution Order
 
@@ -238,7 +239,7 @@ Administrators can:
 
 #### Questionnaire AI Background Fields
 
-For a LegalServer-launched questionnaire, the advocate controls which matter fields are sent to the AI for generating suggested questions. The advocate can disable matter data, select common fields, and optionally select additional fields from the matter payload. Configured LegalServer custom fields are retrieved with the matter and included when matter data is enabled.
+For a LegalServer-launched questionnaire, the advocate chooses an AI background preset for generating suggested questions: none, basic case information, case information and parties, case information and parties and notes, or everything. The default preset can be changed with `questionnaire default ai field set`.
 
 Configure custom fields under `workflowdocs.legalserver.custom fields`:
 
@@ -249,7 +250,7 @@ workflowdocs:
       - problem_statement_130
 ```
 
-These fields are also available to other LegalServer data consumers. The questionnaire sends selected fields only for advocate-facing suggestion generation; they are not sent to the client.
+These fields are also available to other LegalServer data consumers. The questionnaire sends only the fields in the selected preset for advocate-facing suggestion generation; they are not sent to the client.
 
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms.
 
@@ -272,6 +273,7 @@ workflowdocs:
 
       # Feature toggles
       enable ai draft letter: True # Default True. Set False to hide the AI draft letter option from "Assemble documents"
+      questionnaire default ai field set: case_information # Default. One of: none, case_information, case_information_and_parties, case_information_and_parties_and_notes, everything
       legalserver upload pdf: False # Default False. True selects PDF instead of DOCX for generated documents in the LegalServer ZIP; supporting files keep their original formats.
       sms: True # Required True to enable any SMS / Twilio workflow for this client
 

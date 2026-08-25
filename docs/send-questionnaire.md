@@ -30,11 +30,19 @@ When the interview launches, the **advocate setup flow** starts with the **Ready
 If SMS is not enabled, the SMS-only fields are hidden and the link is only sent by email. If you can't turn off the SMS question, ask your administrator to enable SMS in the [client configuration](/docs/admin-guide#sms--twilio-configuration).
 :::
 
-## Step 2: Choose AI Background Fields
+## Step 2: Choose AI Background Information
 
-For a LegalServer-launched questionnaire, the **What case details should the AI use?** screen lets you decide whether the suggestion generator may use matter data. If enabled, select the common fields to share and optionally turn on **Show all fields** to choose additional fields. Configured LegalServer custom fields are included when case details are enabled.
+For a LegalServer-launched questionnaire, the **AI background field set** dropdown controls which matter information the suggestion generator may use:
 
-If you do not provide case details, the suggestions are generic. If you launch the standalone version without LegalServer matter data, this screen is skipped and the workflow asks for a custom question directly.
+| Setting | Information shared with the suggestion generator |
+| ------- | ----------------------------------------------- |
+| **None** | No matter information; suggestions are generic |
+| **Basic case information** | Case number, title, type, problem category, status / disposition, and key dates |
+| **Case information and parties** | Basic information plus client contact details, parties, and litigations |
+| **Case information, parties, and notes** | The above plus case notes |
+| **Everything (all case details)** | The curated set of available matter fields |
+
+Configured LegalServer custom fields are included with **Case information and parties** and the richer sets. If you launch the standalone version without LegalServer matter data, this setting is skipped and the workflow asks for a custom question directly.
 
 ## Step 3: Write the Question
 
@@ -80,7 +88,7 @@ The system typically uses Azure OpenAI Service to:
 - Generate follow-up questions based on the client's responses.
 - Synthesize a final summary of the conversation.
 
-For LegalServer-launched questionnaires, the selected matter fields are sent to the AI only to generate advocate-facing suggestions. If matter data is disabled, the suggestions are generic. The standalone version skips suggestions and asks for a custom question directly.
+For LegalServer-launched questionnaires, only the fields in the selected preset are sent to the AI for advocate-facing suggestions. Choosing **None** produces generic suggestions. The standalone version skips suggestions and asks for a custom question directly.
 
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms. Template auto-labeling can use Google Gemini.
 
