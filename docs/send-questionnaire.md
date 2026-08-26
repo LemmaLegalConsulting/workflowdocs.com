@@ -32,7 +32,7 @@ If SMS is not enabled, the SMS-only fields are hidden and the link is only sent 
 
 ## Step 2: Choose AI Background Information
 
-For a LegalServer-launched questionnaire, the **AI background field set** dropdown controls which matter information the suggestion generator may use:
+On the same advocate setup screen, the **AI background field set** dropdown controls which matter information the suggestion generator may use for a LegalServer-launched questionnaire:
 
 | Setting | Information shared with the suggestion generator |
 | ------- | ----------------------------------------------- |
@@ -63,12 +63,14 @@ You'll receive a notification email when the client is done. If you need to send
 The **client flow** runs in the client's preferred language:
 
 1. A short confirmation screen ("Are you the right person?").
-2. The main question, with a list of fields collected by the structured questionnaire.
+2. The main question chosen or written by the advocate, with a list of fields collected by the structured questionnaire.
 3. Optional follow-up questions — the AI analyzes the client's answer and asks up to **3** targeted follow-ups to fill in gaps.
 4. The client can **opt out of AI follow-ups** if they prefer to write a complete answer themselves.
 5. The client can **upload supporting documents** along with their answers.
 6. A **Review your information** screen with a synthesized summary that the client can edit.
 7. A "Thank you" screen with the final summary.
+
+The standalone **What question do you want to ask?** screen is part of advocate setup only. A client following the secure link confirms their identity and goes directly to the questionnaire prepared by the advocate; they are not asked to write a new question.
 
 ## What the Advocate Receives
 
