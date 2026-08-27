@@ -58,7 +58,7 @@ These filters are the primary way to interact with users and external parties.
 
 ### Filter Options
 
-Both `ask` and `request` accept several options to customize the field. `| request` accepts `question`, `subquestion`, `label`, `datatype`, and `options`, plus `placeholder` and `expected_key`; it does not accept `default` or `hint`.
+Both `ask` and `request` accept several options to customize the field. `| request` accepts `question`, `subquestion`, `label`, `datatype`, `options`, and `fix_punctuation`, plus `placeholder` and `expected_key`; it does not accept `default` or `hint`.
 
 | Option        | Description                                                                             | Example                                               |
 | ------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------- |
@@ -67,10 +67,11 @@ Both `ask` and `request` accept several options to customize the field. `| reque
 | `label`       | A short label for the input field.                                                      | `{{ var_name \| ask(label="Middle Initial") }}`       |
 | `datatype`    | The [Docassemble datatype](https://docassemble.org/docs/fields.html#fields%20datatype). | `{{ var_name \| ask(datatype="date") }}`              |
 | `options`     | A list of choices (for radio/dropdown).                                                 | `{{ var_name \| ask(options=["Yes", "No"]) }}`        |
+| `fix_punctuation` | Apply [Docassemble punctuation repair](https://docassemble.org/docs/functions.html#fix_punctuation) to resolved string output. | `{{ var_name \| ask(fix_punctuation=true) }}`              |
 | `default`     | The default value for the field.                                                        | `{{ var_name \| ask(default="English") }}`            |
 | `hint`        | Placeholder text inside the input.                                                      | `{{ var_name \| ask(hint="MM/DD/YYYY") }}`            |
 
-The `request` filter additionally accepts `placeholder` (the text shown in unsigned renders) and `expected_key` (the render key or keys for which the raw value is returned). `expected_key` does not mark a request complete. See the [`| request` Filter](/docs/request-filter) page for the full reference.
+The `request` filter additionally accepts `placeholder` (the text shown in unsigned renders), `expected_key` (the render key or keys for which the raw value is returned), and `fix_punctuation` (see [Docassemble's punctuation repair function](https://docassemble.org/docs/functions.html#fix_punctuation)) for resolved string output. `expected_key` does not mark a request complete. See the [`| request` Filter](/docs/request-filter) page for the full reference.
 
 ### Multilingual Prompts
 
