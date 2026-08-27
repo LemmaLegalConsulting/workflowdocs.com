@@ -19,6 +19,7 @@ For the full flow walkthrough, see [Multi-Party Signature & Variable Collection]
 | Renders placeholder in unsigned?                                   | No — value is filled live.          | Yes — shows `[ leaf_attribute_name ]` or your custom `placeholder`; uploads use `[ document upload ]`. |
 | Document preview?                                                  | n/a                                 | Yes — requestee sees the preview render before signing.                                                |
 | Accepts `question`, `subquestion`, `label`, `datatype`, `options`? | Yes                                 | Yes                                                                                                    |
+| `fix_punctuation`?                                                | Yes                                 | Yes                                                                                                    |
 | `placeholder`, `expected_key`?                                     | No                                  | Yes                                                                                                    |
 | Backward-compatible name?                                          | `\| catchall_question(...)`         | `\| if_final` (limited)                                                                                |
 
@@ -33,6 +34,7 @@ For the full flow walkthrough, see [Multi-Party Signature & Variable Collection]
 | `options`      | Choices for radio / dropdown / checkboxes.                                                                                                                            | `options=["Phone", "Email", "Text"]`                     |
 | `placeholder`  | Text shown in unsigned renders. If omitted, the usual placeholder is `[ leaf_attribute_name ]`; uploads use `[ document upload ]`.                                    | `placeholder="[PLEASE SIGN]"`                            |
 | `expected_key` | Render key(s) for which the raw value is expected and returned. It is not a completion/answered-state flag; preview inclusion can bypass normal preview placeholders. | `expected_key=["final", "preview"]`                      |
+| `fix_punctuation` | Apply [Docassemble punctuation repair](https://docassemble.org/docs/functions.html#fix_punctuation) to resolved string output. With `| request`, it runs only for the configured `expected_key` render pass. | `fix_punctuation=true` |
 
 ## Examples by Datatype
 
@@ -103,6 +105,19 @@ Do you consent to electronic service?
 ```
 
 See [Multi-Party Signing → Boolean `| request` Fields](/docs/multi-party-signature#boolean--request-fields-and-print-mode) for how to consume a boolean `| request` in conditionals.
+
+### Punctuation Repair
+
+Pass `fix_punctuation=true` to apply [Docassemble's punctuation repair](https://docassemble.org/docs/functions.html#fix_punctuation) to resolved string output. This is useful when optional template text can leave awkward spacing or punctuation around an answer:
+
+```jinja2
+{{ clients[0].incident_summary
+   | request(question="Describe the incident", datatype="area", fix_punctuation=true) }}
+
+{{ incident_summary | ask(fix_punctuation=true) }}
+```
+
+For `| request`, punctuation repair runs only on a resolved value in the configured `expected_key` pass (by default, `final`). Undefined values, placeholders, and non-string values are left unchanged.
 
 ## Multilingual Prompts
 
