@@ -237,7 +237,7 @@ Administrators can:
 - **Disable AI letter drafting per client** with `enable ai draft letter: False` in the per-client config. The questionnaire and auto-labeling features are not affected.
 - **Disable all AI for a site** by contacting Workflow Docs support to disable AI features at the server level.
 
-#### Questionnaire AI Background Fields
+#### Questionnaire AI Background Information
 
 For a LegalServer-launched questionnaire, the advocate chooses an AI background preset for generating suggested questions: none, basic case information, case information and parties, case information and parties and notes, or everything. The default preset can be changed with `questionnaire default ai field set`.
 

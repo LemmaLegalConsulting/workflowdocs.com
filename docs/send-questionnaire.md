@@ -42,11 +42,11 @@ On the same advocate setup screen, the **AI background field set** dropdown cont
 | **Case information, parties, and notes** | The above plus case notes |
 | **Everything (all case details)** | The curated set of available matter fields |
 
-Configured LegalServer custom fields are included with **Case information and parties** and the richer sets. If you launch the standalone version without LegalServer matter data, this setting is skipped and the workflow asks for a custom question directly.
+Configured LegalServer custom fields are included with **Case information and parties** and the richer sets.
 
 ## Step 3: Write the Question
 
-The **What do you want to ask the client?** screen shows 3–5 AI-generated suggestions when available. Pick one, or choose **Custom question** and write your own. You can also optionally set:
+The **What do you want to ask the client?** screen normally shows 3–5 AI-generated suggestions. Pick one, or choose **Custom question** and write your own. You can also optionally set:
 
 - **What makes a complete answer?** — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
 
@@ -70,8 +70,6 @@ The **client flow** runs in the client's preferred language:
 6. A **Review your information** screen with a synthesized summary that the client can edit.
 7. A "Thank you" screen with the final summary.
 
-The standalone **What question do you want to ask?** screen is part of advocate setup only. A client following the secure link confirms their identity and goes directly to the questionnaire prepared by the advocate; they are not asked to write a new question.
-
 ## What the Advocate Receives
 
 When the client is done, the system:
@@ -90,7 +88,7 @@ The system typically uses Azure OpenAI Service to:
 - Generate follow-up questions based on the client's responses.
 - Synthesize a final summary of the conversation.
 
-For LegalServer-launched questionnaires, only the fields in the selected preset are sent to the AI for advocate-facing suggestions. Choosing **None** produces generic suggestions. The standalone version skips suggestions and asks for a custom question directly.
+Only the fields in the selected preset are sent to the AI for advocate-facing suggestions. Choosing **None** produces generic suggestions.
 
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms. Template auto-labeling can use Google Gemini.
 
