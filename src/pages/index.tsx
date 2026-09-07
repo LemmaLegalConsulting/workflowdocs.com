@@ -40,7 +40,15 @@ function HomepageHeader() {
   );
 }
 
-function PricingCard({title, users, price, features, highlight = false}) {
+type PricingCardProps = {
+  title: string;
+  users: string;
+  price: string;
+  features: string[];
+  highlight?: boolean;
+};
+
+function PricingCard({title, users, price, features, highlight = false}: PricingCardProps) {
   return (
     <div className={clsx('card', styles.pricingCard, highlight && styles.pricingCardHighlight)}>
       <div className="card__header">

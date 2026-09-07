@@ -16,13 +16,15 @@ progress sections, so advocates and clients can tell where they are and what
 comes next.
 
 - [Assemble Documents workflow](/docs/assemble-documents)
+- [Request Client Documents workflow](/docs/request-documents)
 - [Send Client a Questionnaire](/docs/send-questionnaire)
 
 ### More control over questionnaire results
 
-Questionnaires can deliver completed documents to the case, send supporting
-documents to the advocate, and use selected case information for AI-assisted
-follow-up questions.
+Questionnaires can upload supporting documents to the LegalServer matter, send
+them to the advocate by email when their combined size is at most 15 MB, or
+provide a download link when they are larger. Advocates can also use selected
+case information for AI-assisted suggested questions.
 
 [Learn more about questionnaires](/docs/send-questionnaire)
 

@@ -6,11 +6,22 @@ sidebar_label: Send Questionnaire
 
 # Send Client a Questionnaire Workflow
 
-This workflow streamlines the process of sending dynamic intake or follow-up questionnaires to clients using Docassemble. The client answers in their own language, the system asks up to three intelligent follow-up questions to fill gaps, and a synthesized summary is delivered to you. When you leave **Save responses to LegalServer?** on, everything the workflow writes back to the matter — case notes and client-uploaded documents — is stored there.
+This workflow streamlines the process of sending dynamic intake or follow-up questionnaires to clients using Docassemble. The client answers in their own language, the system asks up to three intelligent follow-up questions to fill gaps, and a synthesized summary is delivered to you. When the interview has usable LegalServer launch data and you leave **Save responses to LegalServer?** on, the workflow writes case notes and client-uploaded documents back to the matter.
 
 :::info
 To begin, navigate to the LegalServer matter profile and click the **Send client a questionnaire** link under the Docassemble Interviews block.
 :::
+
+## Progress sections
+
+The workflow uses named progress sections instead of the standard percentage
+progress bar. The sections depend on who is using the interview:
+
+- **Advocate:** Set up questionnaire → Send questionnaire → Await response
+- **Client:** Answer questions → Review responses → Finish
+
+The active section updates as the questionnaire moves through the applicable
+steps.
 
 ## Step 1: Configure the Questionnaire
 
@@ -24,7 +35,7 @@ When the interview launches, the **advocate setup flow** starts with the **Ready
 - **Notify advocate after questionnaire is completed?** — toggle on to receive a summary email.
 - **Advocate email address** — the address that should receive the completed summary.
 - **Language for the questionnaire** — pick from your organization's [supported languages](/docs/admin-guide#languages). The default is the client's preferred written language.
-- **Save responses to LegalServer?** — when on, the workflow writes back to the matter: a "questionnaire sent" case note, the completed-responses case note, and any client-uploaded documents. When off, nothing is written to LegalServer.
+- **Save responses to LegalServer?** — when on, the workflow writes a "questionnaire sent" case note, a completed-responses case note, and any client-uploaded documents to the LegalServer matter. When off, nothing is written to LegalServer.
 
 :::tip
 If SMS is not enabled, the SMS-only fields are hidden and the link is only sent by email. If you can't turn off the SMS question, ask your administrator to enable SMS in the [client configuration](/docs/admin-guide#sms--twilio-configuration).
@@ -50,7 +61,7 @@ The **What do you want to ask the client?** screen normally shows 3–5 AI-gener
 
 - **What makes a complete answer?** — list the factors that should be in a complete response, one per line. If you leave this blank, the system uses a sensible default rubric for legal-aid intake.
 
-The system pre-generates a **structured questionnaire** with fields, labels, and choices for the question, then shows a **Review your questionnaire** screen so you can go back and adjust before sending.
+The system pre-generates a **structured questionnaire** with fields, labels, and choices for the question, then shows a **Review your questionnaire** screen so you can go back and adjust before sending. The AI background field set affects the initial suggested-question generation only; it does not change what the client sees or the follow-up analysis and summary.
 
 ## Step 4: Review and Send
 
@@ -74,9 +85,9 @@ The **client flow** runs in the client's preferred language:
 
 When the client is done, the system:
 
-- Sends the advocate an **HTML email** containing the AI-synthesized summary. Client-uploaded documents are attached to the email, or linked when they are too large.
-- When **Save responses to LegalServer?** is on, creates a **case note** on the LegalServer matter with the full conversation (initial question, initial response, and each follow-up Q&A pair) plus the uploaded documents, and uploads the supporting documents to the matter.
-- No case notes or uploads are written to LegalServer when **Save responses to LegalServer?** is off.
+- Sends the advocate an **HTML email** containing the AI-synthesized summary when **Notify advocate after questionnaire is completed?** is on. Client-uploaded documents are attached when their combined size is **15 MB or less**. When the combined size is greater than 15 MB, the email provides a secure session link to view and download the files instead.
+- When usable LegalServer launch data is available and **Save responses to LegalServer?** is on, creates a **case note** containing the full conversation (initial question, initial response, and each follow-up Q&A pair) and a list of uploaded filenames. The supporting documents are uploaded separately as a ZIP to the LegalServer matter.
+- When **Save responses to LegalServer?** is off, no case notes or supporting-document uploads are written to LegalServer.
 
 The summary is always delivered in **English** so the legal team can read it directly, regardless of which language the client used.
 
@@ -88,7 +99,7 @@ The system typically uses Azure OpenAI Service to:
 - Generate follow-up questions based on the client's responses.
 - Synthesize a final summary of the conversation.
 
-Only the fields in the selected preset are sent to the AI for advocate-facing suggestions. Choosing **None** produces generic suggestions.
+Only the fields in the selected preset are sent to the AI for the advocate-facing initial suggested questions. Choosing **None** sends no matter information and produces generic suggestions. The preset does not control the client's answers, AI follow-up analysis, or final summary.
 
 Server administrators may configure OpenAI directly. Customer data is not used to train AI models and is encrypted in transit and at rest. Handling and retention follow the configured provider's enterprise privacy and retention terms. Template auto-labeling can use Google Gemini.
 
@@ -99,3 +110,4 @@ The client can opt out of the AI follow-up feature on a per-question basis; the 
 - **"SMS delivery is not available"** — your organization has not enabled SMS. Send by email only, or ask your administrator to enable SMS.
 - **The link has expired** — relaunch the workflow and send a new link. The 72-hour clock restarts each time.
 - **The case note was not saved** — confirm that the interview was launched from the LegalServer matter profile and that **Save responses to LegalServer?** is on.
+- **Supporting documents were not attached to the email** — attachments are intentionally replaced by a secure download link when their combined size is greater than 15 MB.

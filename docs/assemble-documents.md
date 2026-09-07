@@ -14,6 +14,17 @@ This workflow assumes you have already navigated to the LegalServer matter profi
 ![LegalServer Profile](/img/legalserver_profile.png)
 :::
 
+## Progress sections
+
+The workflow uses named progress sections instead of the standard percentage
+progress bar. The sections depend on who is using the interview:
+
+- **Advocate:** Select templates → Prepare documents → Complete requested information → Review and sign → Finish
+- **Requestee:** Review and sign → Complete requested information → Finish
+
+Print-mode workflows may skip electronic signing sections. The active section
+updates as the workflow moves through the applicable steps.
+
 ## Step 1: Choosing the Document Source
 
 When the interview launches, you'll see quick links to **Manage templates** and **Template builder**, a full variable reference, and the source picker.

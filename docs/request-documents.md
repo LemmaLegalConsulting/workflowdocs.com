@@ -12,6 +12,17 @@ This workflow enables you to send a checklist of documents to a client and colle
 To begin, navigate to the LegalServer matter profile and click the **Request client documents** link under the Docassemble Interviews block.
 :::
 
+## Progress sections
+
+The workflow uses named progress sections instead of the standard percentage
+progress bar. The sections depend on who is using the interview:
+
+- **Advocate:** Set up request → Send request → Track uploads
+- **Client:** Instructions → Upload documents → Finish
+
+The active section updates as the advocate sends the request and as the client
+uploads the requested files.
+
 ## Step 1: Specify the Documents
 
 Build a checklist of the documents you need. For each entry, you can add a **title** (required) and an optional **description** that helps the client understand what to send.
