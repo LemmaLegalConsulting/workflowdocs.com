@@ -65,6 +65,9 @@ The built-in template manager (`/wfd/template-manager`) checks Docassemble privi
 
 - `admin` and `developer` can manage templates for **all** configured organizations.
 - `manage_templates` can manage templates for organizations allowed by their email-domain mapping (defined in `workflowdocs.clients`).
+- The **Manage templates** shortcut in Assemble Documents and on the sign-in screen is shown only to users with `admin`, `developer`, or `manage_templates`.
+- The **Template builder** shortcut in Assemble Documents is shown by default and can be hidden per client with `show docx labeler link: False`.
+- Hiding a shortcut is not an authorization boundary. Direct access to either tool remains subject to authentication and its own privilege checks.
 - Only `admin` / `developer` can change S3 bucket versioning state from the manager API.
 
 ## 5. Client-Level Configuration
@@ -78,6 +81,7 @@ Workflow Docs is **multi-tenant**. Each LegalServer site you serve has its own e
 | `display name`              | none                                               | Branded name shown in client-facing emails and templates.                                                                      |
 | `organization phone number` | inherited from `default organization phone number` | Phone number rendered in salutations / signature lines.                                                                        |
 | `enable ai draft letter`    | `True`                                             | When `False`, the "Create an AI draft letter" option is hidden in **Assemble documents**.                                      |
+| `show docx labeler link`    | `True`                                             | When `False`, the **Template builder** shortcut is hidden in **Assemble documents**.                                           |
 | `legalserver upload pdf`    | `False` (DOCX)                                     | Controls whether generated documents inside the LegalServer ZIP are PDF or DOCX. Uploaded files retain their original formats. |
 | `sms`                       | `False`                                            | Must be `True` to enable any SMS-based flow for this client. See [SMS / Twilio](#sms--twilio-configuration) below.             |
 | `languages`                 | all 8 supported                                    | Subset of client languages to offer for this organization.                                                                     |
@@ -273,6 +277,7 @@ workflowdocs:
 
       # Feature toggles
       enable ai draft letter: True # Default True. Set False to hide the AI draft letter option from "Assemble documents"
+      show docx labeler link: True # Default True. Set False to hide the Template builder shortcut from "Assemble documents"
       questionnaire default ai field set: case_information # Default. One of: none, case_information, case_information_and_parties, case_information_and_parties_and_notes, everything
       legalserver upload pdf: False # Default False. True selects PDF instead of DOCX for generated documents in the LegalServer ZIP; supporting files keep their original formats.
       sms: True # Required True to enable any SMS / Twilio workflow for this client

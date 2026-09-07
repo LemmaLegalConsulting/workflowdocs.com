@@ -8,7 +8,7 @@ sidebar_label: Template Actions
 
 A predefined DOCX or PDF template can have an **optional companion `.yml` file** stored next to the template. In the electronic completion branch, when usable LegalServer launch data is available, Workflow Docs runs supported actions defined in the companion file against the LegalServer matter.
 
-For PDF templates, the same sidecar also contains the required mapping between PDF form fields and Docassemble variables. See [PDF Templates and Sidecar YAML](/docs/pdf-templates) for the complete `fields` reference.
+For PDF templates, the same sidecar can contain explicit mappings between PDF form fields and Docassemble variables, but mappings may also be inferred from compatible PDF field labels. A sidecar may contain `fields`, `actions`, or both. See [PDF Templates and Sidecar YAML](/docs/pdf-templates) for the complete `fields` reference and inference rules.
 
 This is the simplest way to update matter fields, mark compliance flags, or create a case note — all triggered automatically when a document is finalized.
 
@@ -26,7 +26,7 @@ templates/bankruptcy/Notice_of_Filing.docx
 templates/bankruptcy/Notice_of_Filing.yml
 ```
 
-The system automatically fetches the companion file (same path, `.yml` extension) when it downloads the template. If no companion exists, the action step is skipped silently — most templates don't need one.
+The system automatically fetches the companion file (same path, `.yml` extension) when it downloads the template. If no companion exists, the action step is skipped silently — most templates don't need one. For PDFs, inferred field mappings can be used without a sidecar; add a sidecar when you need explicit field behavior, actions, or both.
 
 ## Top-Level Schema
 

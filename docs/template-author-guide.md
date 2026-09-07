@@ -47,9 +47,9 @@ Please see the attached identification:
 
 ## 3. PDF Templates
 
-Workflow Docs can fill existing PDF form fields, ask the advocate for missing values, and route fields to clients or other requestees. PDF templates use a companion `.yml` file instead of Jinja expressions inside the document.
+Workflow Docs can fill existing PDF form fields, ask the advocate for missing values, and route fields to clients or other requestees. Compatible PDF field labels can be mapped automatically; add a companion `.yml` sidecar when you need explicit mappings, custom questions, conditions, formatting, or actions.
 
-See [PDF Templates and Sidecar YAML](/docs/pdf-templates) for setup instructions, a complete sidecar reference, request behavior, conditional fields, output formatting, and troubleshooting.
+After selecting PDFs, use the optional **Review PDF field mappings** screen to verify inferred and explicit targets before relying on the document. See [PDF Templates and Sidecar YAML](/docs/pdf-templates) for setup instructions, inference conventions, the complete sidecar reference, request behavior, conditional fields, output formatting, and troubleshooting.
 
 ## 4. Managing Your Templates
 
@@ -57,6 +57,8 @@ You can create and manage templates using our web-based tools:
 
 - [**Template Manager**](https://app.workflowdocs.com/wfd/template-manager): Upload, delete, and organize your templates.
 - [**Template Editor (Docx Labeler)**](https://app.workflowdocs.com/wfd/docx-labeler): A visual tool to help you find and insert variables into your Word documents.
+
+The **Manage templates** shortcut is shown to users with the Docassemble `manage_templates`, `admin`, or `developer` privilege. The **Template builder** shortcut can be hidden for an organization with the `show docx labeler link: false` setting. Hiding a shortcut does not change the tool's own authentication or privilege checks.
 
 _Note: If your organization has a dedicated Workflow Docs server, replace `app.workflowdocs.com` with your specific server URL._
 

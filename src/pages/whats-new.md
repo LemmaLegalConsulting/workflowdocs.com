@@ -7,6 +7,28 @@ description: New Workflow Docs features and improvements for advocates, clients,
 
 Here are the latest Workflow Docs features and improvements.
 
+## Version 1.5.7 — September 7, 2026
+
+### Faster setup for fillable PDFs
+
+Workflow Docs can automatically map compatible AssemblyLine and ALWeaver PDF
+field labels. Template authors can use an optional YAML sidecar to override or
+extend those mappings, and advocates can review the detected mappings before
+continuing.
+
+- [PDF templates and field mappings](/docs/pdf-templates)
+- [Assemble Documents workflow](/docs/assemble-documents)
+
+### More control over template-tool links
+
+Template Manager shortcuts now respect template-management privileges, and
+organizations can hide the DOCX Template Builder shortcut when they do not want
+it displayed. Direct access to these tools remains protected by authentication
+and privilege checks.
+
+- [Administrator Guide](/docs/admin-guide)
+- [Template Author Guide](/docs/template-author-guide)
+
 ## Version 1.5.6 — August 27, 2026
 
 ### Clearer progress through workflows

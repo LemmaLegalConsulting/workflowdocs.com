@@ -6,7 +6,7 @@ sidebar_label: Assemble Documents
 
 # Assemble Documents Workflow
 
-This walkthrough details the steps to generate, upload, and request signatures for DOCX documents using the Docassemble integration within LegalServer. PDFs can also be selected, filled, or printed where supported, but electronic request routing is supported for DOCX templates.
+This walkthrough details the steps to generate, upload, and request signatures for DOCX and fillable PDF documents using the Docassemble integration within LegalServer. PDFs can be filled or printed, and can use electronic request routing when a sidecar explicitly requests a field or a compatible person-signature label is inferred.
 
 :::info
 This workflow assumes you have already navigated to the LegalServer matter profile and clicked the **Assemble Documents** link under the Docassemble Interviews block.
@@ -27,7 +27,7 @@ updates as the workflow moves through the applicable steps.
 
 ## Step 1: Choosing the Document Source
 
-When the interview launches, you'll see quick links to **Manage templates** and **Template builder**, a full variable reference, and the source picker.
+When the interview launches, you'll see the source picker and a full variable reference. The **Manage templates** shortcut is shown only to users with the `manage_templates`, `admin`, or `developer` privilege. The **Template builder** shortcut can be hidden by your organization; either shortcut's visibility does not replace the tool's own access checks.
 
 ![Assemble Step 1 Choices](/img/assemble_step1_choices.png)
 
@@ -44,8 +44,11 @@ You can mix and match three sources in one batch:
 If you select **Upload a template from my computer**:
 
 - You will be prompted to browse your local file system.
-- You can upload **DOCX or PDF** files. PDFs are processed using their fillable fields; signature fields are filtered out of unsigned renders and re-introduced in the final pass.
+- You can upload **DOCX**, **PDF**, and optional matching **YAML sidecar** files. A sidecar such as `Form.yml` configures `Form.pdf`; the filenames must use the same case-sensitive stem. Sidecars are configuration only and are not assembled as documents.
+- PDFs are processed using their fillable fields. Explicit sidecar mappings and compatible inferred labels can populate fields; compatible person-signature labels can route fields to requestees. Signature fields are filtered out of unsigned renders and re-introduced in the final pass.
 - Once selected, the system will process the document(s) and attach them to the LegalServer matter.
+
+See [PDF Templates and Sidecar YAML](/docs/pdf-templates) for inferred mappings, sidecar rules, and the mapping review.
 
 ### AI Draft Letter
 
@@ -75,7 +78,7 @@ Choose **Print** when the document will be signed by hand, mailed, or signed in 
 
 ## Step 3: Choosing a Predefined Template (With & Without Signatures)
 
-If you select **Use a predefined template**, you'll see a list of available templates. Your library can contain any mix of DOCX and PDF.
+If you select **Use a predefined template**, you'll see a list of available templates. Your library can contain any mix of DOCX and PDF. After PDF selection, advocates can optionally open **Review PDF field mappings** beneath the selected-template list to check explicit, inferred, DACatchAll, and unmapped fields before continuing.
 
 ![Assemble Templates List](/img/assemble_step3_template_list.png)
 
@@ -86,7 +89,7 @@ If you select **Use a predefined template**, you'll see a list of available temp
 
 ### Signature Requests
 
-- Select a DOCX template that contains `| request` fields. PDF templates do not provide electronic request routing or signature support in this flow.
+- Select a DOCX template that contains `| request` fields, or a PDF with explicit `request` sidecar mappings or compatible inferred person-signature fields. Ordinary inferred PDF fields are filled directly and are not automatically routed to requestees.
 - The downstream flow will prompt you to choose each requestee's delivery method (email, SMS, both, show URL, or sign in person) and the signing order (advocate-first or advocate-last).
 - See the [Multi-Party Signing](/docs/multi-party-signature) guide for the full walkthrough.
 

@@ -8,12 +8,9 @@ sidebar_label: PDF Templates
 
 Workflow Docs can use an existing fillable PDF as a document template. The PDF keeps its original design while Workflow Docs fills its form fields from LegalServer and Docassemble, asks the advocate for missing information, or sends selected fields to clients and other requestees.
 
-PDF templates use two files:
+PDF templates use a fillable **AcroForm PDF** containing named form fields. A companion **YAML sidecar** is optional when the PDF's field labels are compatible with the inferred mapping conventions. Use a sidecar when you need explicit mappings, custom questions, conditions, formatting, request behavior, or final actions.
 
-1. A fillable **AcroForm PDF** containing named form fields.
-2. A companion **YAML sidecar** that maps each PDF field to its value and controls how missing information is gathered.
-
-Unlike a DOCX template, a PDF does not contain Jinja expressions. All variable mapping, conditions, formatting, and request behavior live in the sidecar.
+Unlike a DOCX template, a PDF does not contain Jinja expressions. Variable mapping, conditions, formatting, and request behavior live in the sidecar or, where supported, in the PDF field labels.
 
 ## Quick start
 
@@ -29,7 +26,7 @@ Store this sidecar next to it with the same name and a `.yml` extension:
 Housing_Authorization.yml
 ```
 
-A predefined PDF template must have a sidecar with a non-empty top-level `fields` mapping. Workflow Docs does not infer mappings from PDF field names.
+A same-stem sidecar is optional. Use one when you need explicit control over fields or actions; otherwise, compatible PDF field labels can be mapped automatically.
 
 ```yaml
 fields:
@@ -127,14 +124,14 @@ The sidecar has two supported top-level sections:
 
 | Key | Required? | Purpose |
 | --- | --- | --- |
-| `fields` | Required for PDF templates | Maps PDF form-field names to values and gathering behavior. It must be a non-empty mapping. |
+| `fields` | Optional | Explicitly maps PDF form-field names to values and gathering behavior. A sidecar may contain `fields`, `actions`, or both. |
 | `actions` | Optional | Runs supported LegalServer actions after final document generation. |
 
 The same companion-file convention is also available to DOCX templates for `actions`, but only PDF templates use `fields`.
 
 ## The `fields` mapping
 
-Each key under `fields` is a PDF form-field name. Its value can be a variable-path string or a mapping with one or more recognized keys.
+Each key under `fields` is a PDF form-field name. Its value can be a variable-path string or a mapping with one or more recognized keys. Explicit sidecar entries take precedence over inferred mappings for the same physical field.
 
 ### Variable-path shorthand
 
@@ -199,6 +196,61 @@ The following are rejected:
 
 Use `output` when you need formatting or function calls.
 
+## Inferred PDF field mappings
+
+When a PDF field does not have an explicit sidecar entry, Workflow Docs can
+infer a mapping from AssemblyLine/ALWeaver-compatible labels. Person-list labels
+use one-based numbering:
+
+| PDF field label | Inferred target |
+| --- | --- |
+| `clients1_name_first` | `clients[0].name.first` |
+| `clients2_signature` | `clients[1].signature` |
+| `client_signature` | `clients[0].signature` |
+| `advocates1_signature` | `advocates[0].signature` |
+| `advocate_signature` | `advocate.signature` |
+| `users1_address_block` | `users[0].address.block()` |
+
+A repeated field such as `clients1_signature__2` maps to the same target as
+`clients1_signature`. Paired checkbox labels such as `is_minor_yes` and
+`is_minor_no` share the `is_minor` value and render the corresponding boolean
+outputs.
+
+Recognized person-signature labels are the only inferred fields that become
+TemplateRequests. For example, `clients1_signature` requests
+`clients[0].signature` in electronic mode. Ordinary inferred fields such as
+`clients1_email` are filled directly and do not become requests. Other valid
+variable names use ordinary lookup and may fall through to a generated
+`DACatchAll` question.
+
+Explicit sidecar entries always take precedence for the same physical PDF
+field, including `request: false` and explicit blank mappings. Repeated fields
+with a `__N` suffix and paired fields such as `is_minor_yes` / `is_minor_no`
+follow the corresponding AssemblyLine conventions, except that generic
+`signature` labels—including `signature__N`—remain intentionally unmapped
+rather than being routed through a generic signature question. Labels with unsupported characters, including
+Unicode, spaces, or punctuation, remain unmapped; use an explicit sidecar
+mapping for them. A zero-based label such as `clients0_signature` is an
+authoring error unless explicitly configured.
+
+Flat PDFs with no interactive fields pass through unchanged.
+
+### Review inferred mappings
+
+After PDF selection, an advocate can open **Review PDF field mappings** under
+the selected-template list. The review is optional and shows each physical
+field's status—**Explicit**, **Inferred**, **DACatchAll**, or **Unmapped**—along
+with its target, stale sidecar entries, and per-PDF counts. It is an
+advocate-only screen; requestees never see it. Resolve unexpected unmapped or
+stale entries with an explicit sidecar mapping before relying on the document.
+
+### Uploaded PDF sidecars
+
+When uploading a PDF from a computer, you can upload its optional `.yml`
+sidecar at the same time. The sidecar must have exactly the same, case-sensitive
+filename stem as the PDF, such as `Form.pdf` and `Form.yml`. An orphan,
+duplicate, or malformed sidecar is rejected on the upload screen.
+
 ## Asking the advocate with `ask`
 
 Use `ask` for information supplied by the person assembling the document.
@@ -259,7 +311,7 @@ fields:
 
 Request routing comes from the variable's root object. For example, fields under `clients[0]` go to the first client, while fields under `witnesses[0]` go to the first witness.
 
-If a PDF has requested fields for a requestee, that PDF is included in that requestee's preview. It is not shown to unrelated requestees.
+If a PDF has explicit or inferred requested fields for a requestee, that PDF is included in that requestee's preview. This applies to predefined and uploaded PDFs; the PDF is not shown to unrelated requestees.
 
 ## Question metadata
 
@@ -437,7 +489,7 @@ Workflow Docs renders templates in several modes while preparing, previewing, pr
 | `final` | Resolves the requested answer and evaluates `output`. | Same as unsigned. | Same as unsigned. |
 | `print` | Shows the defined value or blank text; never forces an undefined request. | Same as unsigned. | Same as unsigned. |
 
-PDF requests are registered declaratively before the unsigned PDF is rendered. Registration does not gather the answer. This separation prevents requestee fields from being asked of the advocate during document preparation.
+PDF requests—whether explicit in a sidecar or inferred from a person-signature label—are registered declaratively before the unsigned PDF is rendered. Registration does not gather the answer. This separation prevents requestee fields from being asked of the advocate during document preparation.
 
 If one PDF field requests a variable and another PDF field derives output from the same variable, non-final passes will not independently gather the derived field.
 
@@ -466,23 +518,19 @@ See [Template Companion Actions](/docs/template-actions) for the full action ref
 
 ## How PDF assembly works
 
-1. Workflow Docs downloads the selected predefined PDF and its same-stem `.yml` sidecar.
-2. It verifies that the sidecar contains a non-empty `fields` mapping.
-3. It validates paths, question metadata, gathering modes, conditions, and Mako syntax.
-4. It registers every `request: true` or `request: {...}` declaration with TemplateRequest without resolving the variable.
+1. Workflow Docs downloads the selected predefined PDF and any same-stem `.yml` sidecar.
+2. It analyzes the PDF's field labels and combines inferred mappings with explicit sidecar entries; explicit entries take precedence.
+3. It validates paths, question metadata, gathering modes, conditions, and Mako syntax when a sidecar is present.
+4. It registers every explicit request and inferred person-signature request with TemplateRequest without resolving the variable.
 5. It renders the unsigned PDF. Requested fields become placeholders; advocate and ordinary fields are gathered as needed.
 6. Each external requestee receives only the documents and fields assigned to that person's variable root.
 7. After all required answers are complete, Workflow Docs renders the final PDF and runs `actions.final` when configured.
 
 ## Validation and common errors
 
-### Missing sidecar or `fields`
+### Missing or mismatched sidecar
 
-```text
-PDF template "Form.pdf" requires a non-empty companion fields mapping
-```
-
-Confirm that `Form.yml` is next to `Form.pdf`, that the names match exactly, and that `fields` is a non-empty YAML mapping.
+Compatible inferred field labels let a PDF work without a sidecar. If you provide one, confirm that `Form.yml` is next to `Form.pdf` with the exact same case-sensitive stem. Use a non-empty `fields` mapping when you need explicit field control, and use `actions` when you need final LegalServer actions.
 
 ### PDF field stays blank
 
@@ -510,8 +558,10 @@ Use `options`, not `choices`, and remove unknown keys. For `submitted_document_u
 ## Authoring checklist
 
 - Create an AcroForm PDF with stable, uniquely named form fields.
-- Copy the field names exactly into the sidecar's `fields` mapping.
-- Give the sidecar the same path and filename stem as the PDF.
+- Use AssemblyLine/ALWeaver-compatible labels when inferred mappings are sufficient.
+- Add a sidecar when you need explicit mappings, custom gathering, conditions, formatting, or actions.
+- Copy explicit field names exactly into the sidecar's `fields` mapping.
+- Give the sidecar the same path and case-sensitive filename stem as the PDF.
 - Use plain `variable` mappings for existing interview data.
 - Use `ask` for the advocate and `request` for an external person.
 - Put function calls and formatting under `output`, not `variable`.
