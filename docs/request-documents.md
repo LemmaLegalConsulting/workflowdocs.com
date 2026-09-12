@@ -4,101 +4,150 @@ title: Request Client Documents
 sidebar_label: Request Documents
 ---
 
-# Request Client Documents Workflow
+# Request Client Documents
 
-This workflow enables you to send a checklist of documents to a client and collect their uploads — through email, SMS, or both. With the LegalServer upload toggle on and usable LegalServer launch data available, files are zipped and uploaded to the matter. A separate advocate notification is sent only when **Send copy to advocate** is on.
+The document-request portal gives each LegalServer matter a reusable checklist
+and secure client upload link. Advocates can add requests over time, send the
+current list by email or SMS, review uploads, and ask the client for changes.
 
 :::info
-To begin, navigate to the LegalServer matter profile and click the **Request client documents** link under the Docassemble Interviews block.
+From the LegalServer matter, open **Request client documents** in the
+Docassemble Interviews block. Workflow Docs opens the saved portal for that
+matter or creates it the first time you visit.
 :::
 
-## Progress sections
+## For advocates
 
-The workflow uses named progress sections instead of the standard percentage
-progress bar. The sections depend on who is using the interview:
+### 1. Add the documents you need
 
-- **Advocate:** Set up request → Send request → Track uploads
-- **Client:** Instructions → Upload documents → Finish
+Select **Add a document request** and complete:
 
-The active section updates as the advocate sends the request and as the client
-uploads the requested files.
+- **Title** — the document name the client sees, such as “Pay stubs from the
+  last 60 days.”
+- **Description** — optional instructions about dates, where to find the
+  document, or whether a phone photo is acceptable.
+- **Number of files required** — use more than one when the request will arrive
+  in separate files.
 
-## Step 1: Specify the Documents
+Create separate requests for separate documents. For example, request a lease
+and a notice to quit as two items so that you can review each independently.
 
-Build a checklist of the documents you need. For each entry, you can add a **title** (required) and an optional **description** that helps the client understand what to send.
+### 2. Send the request
 
-For example:
+Open **Send request to client**, then choose **Email**, **SMS**, or both. The
+email-address field appears only when Email is selected, and the mobile-number
+field appears only when SMS is selected. Choose the request language and select
+**Send now**.
 
-| Title    | Description                                         |
-| -------- | --------------------------------------------------- |
-| Pay stub | Most recent pay stub from your employer.            |
-| Lease    | A signed copy of your current lease.                |
-| Photo ID | A clear photo of your driver's license or state ID. |
+The button shows progress while Workflow Docs sends the message and cannot be
+clicked repeatedly during delivery. Workflow Docs also prevents rapid duplicate
+sends from another tab. A delivery result confirms whether email, SMS, or both
+were sent.
 
-You can add as many items as you need by clicking **Add another**.
+You can also:
 
-## Step 2: Configure the Request
+- select **Save without sending** to keep the contact and language settings;
+- copy the client upload link into your own message;
+- resend the current outstanding list after adding another request; or
+- rotate the upload link if it was shared with the wrong person.
 
-On the request screen, you'll fill in the recipient and notification details.
+:::warning Keep the upload link private
+Anyone with the link can view the request list and upload files. Treat it like a
+password. Rotate the link if it is exposed, or close the upload portal when it
+is no longer needed.
+:::
 
-### Who needs to send you the documents?
+### 3. Review what the client sends
 
-- **Client name** — defaults to the matter's primary client.
-- **Request documents via**:
-  - **Email** — sends a single email with a secure upload link.
-  - **SMS** — sends a single text message with the link.
-  - **Email and SMS** — sends to both channels. _Note:_ The SMS options only appear if your organization has [SMS enabled](/docs/admin-guide#sms--twilio-configuration).
-- **Client email / phone** — defaults are pre-filled from the matter; you can pick another or type a new one.
+New files appear under **Files the client has uploaded**. From there, you can:
 
-### Who should we notify when the request is finished?
+- download or delete an upload;
+- accept a complete request;
+- request changes and leave a note the client can see;
+- cancel a request that is no longer needed; and
+- retry a failed advocate notification or LegalServer delivery.
 
-- **Send copy to advocate** — toggle on to receive a notification email when the request is complete.
-- **Advocate name / email** — defaults to the matter's primary assignment.
+When LegalServer delivery is configured, Workflow Docs sends each protected
+upload to the matter’s documents area. Closing a portal stops new uploads but
+keeps its requests and files.
 
-### Request language
+## For clients
 
-Pick the language of the request email/SMS from your organization's [supported languages](/docs/admin-guide#languages). The default is the client's preferred written language from LegalServer (with sensible fallbacks for Chinese variants and others).
+Clients do not need a Workflow Docs account. They open the secure link from the
+email or text message and see the name of the legal aid program that requested
+the documents, the advocate or case information when available, and contact
+information for questions.
 
-### LegalServer upload settings
+If no requests are currently available, the page asks the client to check back
+later or contact their advocate instead of showing empty upload panels.
 
-- **Upload documents to LegalServer when received?** — when on, uploaded files are zipped and posted to the LegalServer matter's documents tab as soon as the client is done. Defaults to **on** for matters launched from LegalServer.
+### Upload a file or phone photo
 
-![Request Documents Initial Screen](/img/request_docs_step1.png)
+For each requested document:
 
-## Step 3: Send and Wait
+1. Select **Choose a file or take a photo**.
+2. Choose an existing file, or use the phone’s camera to photograph the page.
+3. Select **Upload document**.
+4. Wait for the button to finish showing **Uploading…** before leaving the page.
 
-After you click **Next**, the system sends the request and shows a "Request sent" screen. The link is valid for **7 days (168 hours)**. If **Send copy to advocate** is on, the advocate address receives an email when the client is done.
+The choices offered for taking a photo or selecting a file are provided by the
+phone and browser, so their wording may vary.
 
-If you need to send the link manually (for example, in a separate SMS thread), use the **Copy link** button on the waiting screen.
+### Upload a multi-page document with a phone
 
-## What Happens When the Client Uploads
+A client can photograph a multi-page document one page at a time without using
+a separate scanning app:
 
-When the client opens the link and uploads files:
+1. Select **Choose a file or take a photo** and photograph the first page.
+2. At **Do you have another page to upload?**, use the same control to take the
+   next page.
+3. Repeat until every page is shown in the review area.
+4. Rotate any sideways page, remove an incorrect photo, and move pages into the
+   correct order.
+5. Select **Combine and upload**.
+6. Keep the page open while the button shows **Combining and uploading…**.
 
-1. Each uploaded file is **renamed** to include the document title (for example, `Pay stub - filename.pdf`).
-2. If enabled and applicable, **Upload to LegalServer** zips all files and posts them to the matter's documents tab.
-3. If **Send copy to advocate** is on, the advocate receives a completion notification. Attachments are included when the total is **15 MB or less**; above 15 MB the notification contains a link instead of attachments.
+Workflow Docs combines JPG, PNG, HEIC, or HEIF pages into one PDF. When
+OCRmyPDF is available, it also tries to add a searchable, readable text layer.
+OCR is best effort: if text recognition is unavailable or fails, the combined
+image PDF is still uploaded.
 
-The client sees a "Thank you!" confirmation screen and is done.
+:::tip Taking clear page photos
+Place the paper on a contrasting surface, include all four corners, avoid glare
+and shadows, and check that small text is readable before uploading.
+:::
 
-## SMS-Specific Behavior
+### Correct a submitted document
 
-When the request is sent by SMS (or by SMS in addition to email):
+The client can return to the same link while the portal remains open. If the
+advocate selects **Needs changes**, the request returns to the outstanding list
+with the advocate’s note so the client knows what to replace or add.
 
-- The message is sent **without a subject** (subjects are not meaningful in SMS).
-- The body is a short, plain-text line that includes the advocate's name (and the organization name, if configured), the count of documents requested, and the secure link.
+## Language and contact information
 
-## Email Template
+The advocate’s selected language controls both the request message and the
+client upload page. The current portal interface supports English and Spanish.
+Changing the portal language changes what the client sees at the same secure
+link.
 
-The email message uses a styled HTML template that includes:
-
-- The organization name (if configured) and the advocate's name.
-- A clear list of each requested document title and description.
-- A prominent "Upload Documents" call-to-action button.
-- A footer noting that the link will expire in 7 days.
+The client page emphasizes the legal aid program—not Workflow Docs branding.
+It uses the organization’s configured phone number and email address when
+available, with the advocate’s information as a fallback.
 
 ## Troubleshooting
 
-- **"SMS delivery is not available"** — your organization has not enabled SMS/Twilio. Choose **Email only** for this request, or ask your administrator to enable SMS in the [client configuration](/docs/admin-guide#sms--twilio-configuration).
-- **Files are missing from the LegalServer upload** — verify the **Upload documents to LegalServer when received?** toggle is on, and that the interview was launched from the LegalServer matter profile (so it has access to the case UUID).
-- **The link has expired** — relaunch the workflow and send a new request.
+- **The email or phone field is missing** — select its Email or SMS checkbox.
+- **The Send button still says Sending…** — leave the page open while the mail
+  or SMS provider responds. The controls become available again after success
+  or an error.
+- **The camera option does not appear** — camera choices are controlled by the
+  device and browser. Check camera permission, or take photos in the camera app
+  first and select them as existing files.
+- **A page is sideways or out of order** — rotate or move it in the review area
+  before selecting **Combine and upload**.
+- **The combined upload takes longer** — image conversion and OCR take more
+  time than uploading one existing PDF. Watch the progress text on the button.
+- **No documents are listed** — check back later or contact the advocate shown
+  on the page.
+- **LegalServer delivery failed** — the upload remains available in Workflow
+  Docs. An advocate can retry delivery from the portal.
