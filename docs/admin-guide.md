@@ -80,6 +80,7 @@ Workflow Docs is **multi-tenant**. Each LegalServer site you serve has its own e
 | --------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `display name`              | none                                               | Branded name shown in client-facing emails and templates.                                                                      |
 | `organization phone number` | inherited from `default organization phone number` | Phone number rendered in salutations / signature lines.                                                                        |
+| `organization email`        | inherited from `default organization email`        | Contact email shown to clients on the document-request upload page.                                                             |
 | `enable ai draft letter`    | `True`                                             | When `False`, the "Create an AI draft letter" option is hidden in **Assemble documents**.                                      |
 | `show docx labeler link`    | `True`                                             | When `False`, the **Template builder** shortcut is hidden in **Assemble documents**.                                           |
 | `legalserver upload pdf`    | `False` (DOCX)                                     | Controls whether generated documents inside the LegalServer ZIP are PDF or DOCX. Uploaded files retain their original formats. |
@@ -94,6 +95,41 @@ Workflow Docs is **multi-tenant**. Each LegalServer site you serve has its own e
 Fallbacks are setting-specific. In general, a per-client value is preferred, followed by the applicable top-level setting and then that setting's built-in default; not every key has the same top-level fallback.
 
 `display name` and `organization phone number` fall back to `default organization name` and `default organization phone number`. `exitpage` falls back to the top-level Docassemble `exitpage`. Other settings use the defaults shown above.
+
+### Document-request portal settings
+
+Document upload limits and accepted file types are configured under
+`workflowdocs` → `document tasks`. Keys may use spaces, as below, or underscores.
+
+```yaml
+workflowdocs:
+  default organization name: Legal Aid Program
+  default organization phone number: 617-555-0100
+  default organization email: help@example.org
+  document tasks:
+    max upload mb: 50
+    max uploads per minute: 10
+    max batch image pages: 20
+    allowed upload extensions:
+      - pdf
+      - docx
+      - jpg
+      - jpeg
+      - png
+      - heic
+      - heif
+    default phone region: US
+```
+
+Per-client `display name`, `organization phone number`, and `organization
+email` values override these organization defaults. The document-request page
+uses them to tell the client which legal aid program sent the request and whom
+to contact with questions.
+
+Multi-page JPG, PNG, HEIC, and HEIF uploads are combined into a PDF. If the
+`ocrmypdf` executable or Python package is installed, Workflow Docs prefers it
+to add a searchable text layer. OCR is best effort: an OCR failure leaves a
+valid image-only PDF rather than failing the client’s upload.
 
 ### Developer Overrides
 
