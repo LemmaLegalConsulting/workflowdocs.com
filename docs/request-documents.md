@@ -61,6 +61,7 @@ is no longer needed.
 
 New files appear under **Files the client has uploaded**. From there, you can:
 
+- read any note the client attached to the upload;
 - download or delete an upload;
 - accept a complete request;
 - request changes and leave a note the client can see;
@@ -87,8 +88,10 @@ For each requested document:
 
 1. Select **Choose a file or take a photo**.
 2. Choose an existing file, or use the phone’s camera to photograph the page.
-3. Select **Upload document**.
-4. Wait for the button to finish showing **Uploading…** before leaving the page.
+3. Optionally add a note about that document—for example, identify a missing
+   page, explain an unclear photo, or tell the advocate what the file contains.
+4. Select **Upload document**.
+5. Wait for the button to finish showing **Uploading…** before leaving the page.
 
 The choices offered for taking a photo or selecting a file are provided by the
 phone and browser, so their wording may vary.
@@ -104,8 +107,9 @@ a separate scanning app:
 3. Repeat until every page is shown in the review area.
 4. Rotate any sideways page, remove an incorrect photo, and move pages into the
    correct order.
-5. Select **Combine and upload**.
-6. Keep the page open while the button shows **Combining and uploading…**.
+5. Optionally add one note about the combined document.
+6. Select **Combine and upload**.
+7. Keep the page open while the button shows **Combining and uploading…**.
 
 Workflow Docs combines JPG, PNG, HEIC, or HEIF pages into one PDF. When
 OCRmyPDF is available, it also tries to add a searchable, readable text layer.
