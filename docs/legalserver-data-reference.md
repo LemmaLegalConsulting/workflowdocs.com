@@ -85,6 +85,7 @@ Access specific parts of a nested object, like the home city:
 | `case_disposition` | Lookup  | The case disposition.                         |
 | `date_opened`      | String  | ISO date of intake.                           |
 | `matter_uuid`      | String  | Unique UUID for the case.                     |
+| `case_email_address` | String | Read-only case email address, not the client's personal email. |
 
 ### Client Information
 
@@ -92,7 +93,7 @@ Access specific parts of a nested object, like the home city:
 | ------------------------- | ------ | --------------------------------------------------------- |
 | `client_full_name`        | String | The client's full name.                                   |
 | `first`, `middle`, `last` | String | Individual name components.                               |
-| `client_email_address`    | String | Primary email.                                            |
+| `client_email_address`    | String or null | Client email; maps to `clients[i].email`.          |
 | `home_phone`              | String | Home number; maps to `clients[i].phone_number`.             |
 | `mobile_phone`            | String | Mobile number; maps to `clients[i].mobile_number`.          |
 | `work_phone`              | String | Work number; maps to `clients[i].work_phone`.               |
@@ -102,6 +103,28 @@ Access specific parts of a nested object, like the home city:
 | `client_address_home`     | Object | Nested address object (`street`, `city`, `state`, `zip`). |
 | `client_gender`           | Lookup | Client gender.                                            |
 | `citizenship`             | Lookup | Citizenship status.                                       |
+
+### Email Addresses
+
+The core matter response exposes one client email field:
+
+| Raw field | Type | Workflow Docs mapping |
+| --------- | ---- | --------------------- |
+| `client_email_address` | String or null | `clients[0].email` (also `client.email` in the standard import). |
+| `case_email_address` | String, read-only | `legalserver_case.email`, **not** a client email attribute. |
+
+Use the raw value or the imported person attribute in a template:
+
+```jinja2
+{{ legalserver_data.get('client_email_address') or '' }}
+{{ clients[0].email }}
+```
+
+The person attribute is populated only when the raw value is not `null`; guard its use if the email might be unavailable. `case_email_address` is the case's address (for example, `14-0000005@yoursite.legalserver.org`), not an alternate personal address for the client.
+
+The core schema does not define separate client home/work/secondary email fields or a client email-address list. The standard client mapping also does not populate email note or safety attributes. Site-specific custom email fields need explicit fetching and interview support; they are not automatically aliases of `clients[i].email`.
+
+Related contacts and other parties may have their own `email` fields. Those belong to those records and are not additional client email addresses. For person aliases, multi-client templates, and request-interview email variables, see [Email Addresses](/docs/full-variable-list#email-addresses).
 
 ### Phone Numbers
 
@@ -214,6 +237,7 @@ Litigation or case contacts.
 
 - `['first']`, `['last']`: Contact name.
 - `['phone_business']`: Work number.
+- `['email']`: This contact's email address, not the client's email.
 - `['case_contact_type']`: Lookup dictionary.
 
 ### `associated_cases`

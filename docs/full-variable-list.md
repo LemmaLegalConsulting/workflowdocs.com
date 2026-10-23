@@ -152,7 +152,7 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].birthdate`          | Date of birth.                             |
 | `clients[i].gender`             | Gender.                                    |
 | `clients[i].marital_status`     | Marital status.                            |
-| `clients[i].email`              | Email address.                             |
+| `clients[i].email`              | Client email; imported from `client_email_address`. See [Email Addresses](#email-addresses). |
 | `clients[i].preferred_language` | Preferred language.                        |
 | `clients[i].pronouns`           | Preferred pronouns.                        |
 | `clients[i].aliases`            | List of aliases.                           |
@@ -160,6 +160,23 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].signature`          | Signature object.                          |
 | `clients[i].program`            | Associated LegalServer program.            |
 | `signature_date`                | The date the document is generated/signed. |
+
+### Email Addresses
+
+| Variable | Source / meaning |
+| -------- | ---------------- |
+| `clients[i].email` | Populated from `legalserver_data['client_email_address']` when that value is not `null`. |
+| `client.email` | In the standard LegalServer import, `client` refers to the same person as `clients[0]`, so this is the same email attribute, not another address. |
+| `legalserver_data['client_email_address']` | Raw client email string (may be `null`). |
+| `legalserver_case.email` | Populated from `legalserver_data['case_email_address']`: the case's email address, **not the client's personal email**. |
+
+The core LegalServer matter schema exposes one client email field. The standard client mapping does not populate separate home, work, secondary, or alternate email attributes, an email-address list, or client email note/safety flags. Additional addresses require interview-specific support or site-specific custom fields; do not assume attributes such as `clients[i].email_address` or `clients[i].secondary_email` exist.
+
+For a template with several clients, use each person's own attribute, such as `{{ clients[0].email }}` and `{{ clients[1].email }}`, when populated. The standard LegalServer import creates only `clients[0]`; it does not turn case-contact emails into additional clients.
+
+Some request interviews also collect `client_email` as a delivery destination. This standalone interview variable is not another automatically imported client attribute and should not be confused with the raw API key `client_email_address`.
+
+See [LegalServer email addresses](/docs/legalserver-data-reference#email-addresses) for raw fields and [client email options](#client-email-options) for the helper used by request interviews.
 
 ### Phone Numbers
 
@@ -250,6 +267,12 @@ These are Jinja-callable functions built into Workflow Docs.
 | `wfd_normalize_language_code(code, default="")`         | Maps Chinese variants like `zh_CN`, `zh_TW`, `zh-Hans`, `zh-Hant` to the canonical `zh-CN`/`zh-TW` form.                                                                                                                |
 | `wfd_filter_language_codes_for_choices(codes)`          | Turns a list of language codes into a list of `{label, value}` dicts suitable for a Docassemble `code:` field.                                                                                                          |
 | `wfd_client_language_code_for_name(name, default="en")` | Resolves a language name (e.g. `"Spanish"`) to its code (e.g. `"es"`).                                                                                                                                                  |
+
+### Client Email Options
+
+`get_client_email_options()` returns unique, nonempty candidate values from `client.email`, then already-created items in `clients`, then `legalserver_data['client_email']` if that key exists. It returns `[""]` when no candidates are found.
+
+The final fallback key is `client_email`, **not** the core API's `client_email_address`. Normally, the standard LegalServer import supplies the API value through `client.email` / `clients[0].email`; the helper does not directly read the raw `client_email_address` field. It gathers existing values rather than discovering additional addresses or splitting a value into multiple addresses.
 
 ### Dates
 
