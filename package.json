@@ -15,9 +15,9 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "3.10.0",
-    "@docusaurus/faster": "3.10.0",
-    "@docusaurus/preset-classic": "3.10.0",
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/faster": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
     "@easyops-cn/docusaurus-search-local": "^0.55.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
@@ -26,9 +26,9 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.10.0",
-    "@docusaurus/tsconfig": "3.10.0",
-    "@docusaurus/types": "3.10.0",
+    "@docusaurus/module-type-aliases": "3.10.2",
+    "@docusaurus/tsconfig": "3.10.2",
+    "@docusaurus/types": "3.10.2",
     "@types/react": "^19.0.0",
     "playwright": "^1.59.1",
     "typescript": "~6.0.2"
@@ -47,5 +47,12 @@
   },
   "engines": {
     "node": ">=20.0"
+  },
+  "overrides": {
+    "tinypool": "^2.1.2",
+    "serialize-javascript": "^7.0.5",
+    "postcss-selector-parser": "^7.1.6",
+    "qs": "^6.16.0",
+    "uuid": "^11.1.1"
   }
 }
