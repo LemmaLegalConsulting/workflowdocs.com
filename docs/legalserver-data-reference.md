@@ -85,6 +85,7 @@ Access specific parts of a nested object, like the home city:
 | `case_disposition` | Lookup  | The case disposition.                         |
 | `date_opened`      | String  | ISO date of intake.                           |
 | `matter_uuid`      | String  | Unique UUID for the case.                     |
+| `case_email_address` | String | Case email address, not the client's email. |
 
 ### Client Information
 
@@ -92,11 +93,18 @@ Access specific parts of a nested object, like the home city:
 | ------------------------- | ------ | --------------------------------------------------------- |
 | `client_full_name`        | String | The client's full name.                                   |
 | `first`, `middle`, `last` | String | Individual name components.                               |
-| `client_email_address`    | String | Primary email.                                            |
-| `mobile_phone`            | String | Mobile number.                                            |
+| `client_email_address`    | String | Client's email address.                                   |
+| `home_phone`              | String | Home phone.                                               |
+| `mobile_phone`            | String | Mobile phone.                                             |
+| `work_phone`              | String | Work phone.                                               |
+| `other_phone`             | String | Other phone.                                              |
+| `fax_phone`               | String | Fax number.                                               |
+| `preferred_phone_number`  | Lookup | Preferred-phone selection, not the actual number.          |
 | `client_address_home`     | Object | Nested address object (`street`, `city`, `state`, `zip`). |
 | `client_gender`           | Lookup | Client gender.                                            |
 | `citizenship`             | Lookup | Citizenship status.                                       |
+
+Contact fields may be `null` when no value has been entered. For example, `{{ legalserver_data.get('client_email_address') or '' }}` leaves the email blank when it is missing.
 
 ### Financial & Eligibility
 
@@ -157,12 +165,24 @@ Files attached to the LegalServer record.
 - `['title']`: The document title.
 - `['download_url']`: Path to download the file.
 
+### `phone_numbers`
+
+When available, a list of client phone records. Requires LegalServer's **Person Phone Numbers beta feature**.
+
+- `['phone_number']`: Phone number.
+- `['type']`: Phone type (Lookup).
+- `['is_primary']`: Whether this is a primary number.
+- `['is_preferred']`: Whether this is a preferred number.
+- `['is_safe']`: Whether the number is safe to contact.
+- `['note']`: Phone note.
+
 ### `contacts`
 
 Litigation or case contacts.
 
 - `['first']`, `['last']`: Contact name.
 - `['phone_business']`: Work number.
+- `['email']`: Contact's email address.
 - `['case_contact_type']`: Lookup dictionary.
 
 ### `associated_cases`

@@ -152,10 +152,13 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].birthdate`          | Date of birth.                             |
 | `clients[i].gender`             | Gender.                                    |
 | `clients[i].marital_status`     | Marital status.                            |
-| `clients[i].email`              | Email address.                             |
-| `clients[i].phone_number`       | Primary phone.                             |
+| `clients[i].email`              | Client's email address.                    |
+| `clients[i].phone_number`       | Home phone for LegalServer clients.        |
 | `clients[i].mobile_number`      | Mobile phone.                              |
-| `clients[i].fax_number`         | Fax number.                                |
+| `clients[i].work_phone`         | Work phone.                                |
+| `clients[i].other_phone`        | Other phone.                               |
+| `clients[i].fax_phone`          | Fax number.                                |
+| `clients[i].preferred_phone_number` | Preferred phone type (label, not a number). |
 | `clients[i].preferred_language` | Preferred language.                        |
 | `clients[i].pronouns`           | Preferred pronouns.                        |
 | `clients[i].aliases`            | List of aliases.                           |
@@ -163,6 +166,10 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].signature`          | Signature object.                          |
 | `clients[i].program`            | Associated LegalServer program.            |
 | `signature_date`                | The date the document is generated/signed. |
+
+For example, use `{{ clients[0].email }}` for the first client's email or `{{ clients[0].mobile_number }}` for their mobile phone. Contact fields may be blank if they have not been entered in LegalServer.
+
+For raw LegalServer field names, see [Client Information](/docs/legalserver-data-reference#client-information).
 
 ---
 
