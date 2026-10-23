@@ -153,9 +153,6 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].gender`             | Gender.                                    |
 | `clients[i].marital_status`     | Marital status.                            |
 | `clients[i].email`              | Email address.                             |
-| `clients[i].phone_number`       | Primary phone.                             |
-| `clients[i].mobile_number`      | Mobile phone.                              |
-| `clients[i].fax_number`         | Fax number.                                |
 | `clients[i].preferred_language` | Preferred language.                        |
 | `clients[i].pronouns`           | Preferred pronouns.                        |
 | `clients[i].aliases`            | List of aliases.                           |
@@ -163,6 +160,37 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].signature`          | Signature object.                          |
 | `clients[i].program`            | Associated LegalServer program.            |
 | `signature_date`                | The date the document is generated/signed. |
+
+### Phone Numbers
+
+Person attributes are separate from the raw `legalserver_data` dictionary. When the LegalServer integration populates the client, it uses these mappings (only when the source value is not `null`):
+
+| Client attribute                    | LegalServer source                                      | Meaning                              |
+| ----------------------------------- | ------------------------------------------------------- | ------------------------------------ |
+| `clients[i].phone_number`            | `legalserver_data['home_phone']`                         | Home phone, **not a selected primary phone**. |
+| `clients[i].mobile_number`           | `legalserver_data['mobile_phone']`                       | Mobile phone.                        |
+| `clients[i].work_phone`              | `legalserver_data['work_phone']`                         | Work phone.                          |
+| `clients[i].other_phone`             | `legalserver_data['other_phone']`                        | Other phone.                         |
+| `clients[i].fax_phone`               | `legalserver_data['fax_phone']`                          | Fax number.                          |
+| `clients[i].preferred_phone_number`  | `legalserver_data['preferred_phone_number']['lookup_value_name']` | Preferred-phone lookup label, **not an actual number**. |
+
+The integration also copies phone notes and safety flags when present:
+
+| Number attribute | Note attribute | Safety attribute |
+| ---------------- | -------------- | ---------------- |
+| `phone_number` | `phone_number_note` | `phone_number_safe` |
+| `mobile_number` | `mobile_number_note` | `mobile_number_safe` |
+| `work_phone` | `work_phone_note` | `work_phone_safe` |
+| `other_phone` | `other_phone_note` | `other_phone_safe` |
+| `fax_phone` | `fax_phone_note` | `fax_phone_safe` |
+
+Prefix these with `clients[i].`, for example `clients[0].mobile_number_safe`. A safety flag records whether a number is safe to contact; it is not a preferred- or primary-number indicator.
+
+AssemblyLine's `phone_numbers()` method formats the populated `mobile_number`, `phone_number`, `work_number`, `other_number`, and `home_number` attributes. The LegalServer mapping does **not** populate `work_number`, `other_number`, or `home_number`; it uses `work_phone`, `other_phone`, and `phone_number` instead. Therefore, `{{ clients[0].phone_numbers() }}` does not include the imported work or other phone numbers. It also does not filter numbers using the LegalServer `*_safe` flags.
+
+`clients[i].fax_number` may be used by other interview/support code, but this LegalServer mapping populates `fax_phone`, not `fax_number`. Do not assume these differently named attributes are interchangeable or automatically available.
+
+For raw API fields and the optional `phone_numbers` list with primary-number flags, see [LegalServer phone numbers](/docs/legalserver-data-reference#phone-numbers).
 
 ---
 

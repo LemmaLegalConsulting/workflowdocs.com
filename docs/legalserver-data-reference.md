@@ -93,10 +93,38 @@ Access specific parts of a nested object, like the home city:
 | `client_full_name`        | String | The client's full name.                                   |
 | `first`, `middle`, `last` | String | Individual name components.                               |
 | `client_email_address`    | String | Primary email.                                            |
-| `mobile_phone`            | String | Mobile number.                                            |
+| `home_phone`              | String | Home number; maps to `clients[i].phone_number`.             |
+| `mobile_phone`            | String | Mobile number; maps to `clients[i].mobile_number`.          |
+| `work_phone`              | String | Work number; maps to `clients[i].work_phone`.               |
+| `other_phone`             | String | Other number; maps to `clients[i].other_phone`.             |
+| `fax_phone`               | String | Fax number; maps to `clients[i].fax_phone`.                 |
+| `preferred_phone_number`  | Lookup | Preferred-phone selection, not the actual number.          |
 | `client_address_home`     | Object | Nested address object (`street`, `city`, `state`, `zip`). |
 | `client_gender`           | Lookup | Client gender.                                            |
 | `citizenship`             | Lookup | Citizenship status.                                       |
+
+### Phone Numbers
+
+The standard case response has separate `home_phone`, `mobile_phone`, `work_phone`, `other_phone`, and `fax_phone` fields, each of which can be `null`. There is no single top-level primary-phone field in this response.
+
+Use bracket notation to access an actual number:
+
+```jinja2
+{{ legalserver_data['home_phone'] }}
+{{ legalserver_data['mobile_phone'] }}
+```
+
+Despite its name, `preferred_phone_number` is a **lookup object**, not a phone-number string:
+
+```jinja2
+{{ legalserver_data['preferred_phone_number']['lookup_value_name'] }}
+```
+
+This displays the selection's label, not the corresponding phone number. The API also exposes per-number notes and safety indicators, such as `home_phone_note` and `home_phone_safe`. These values may be `null`; a safety indicator is not a primary-number flag.
+
+The Workflow Docs client attributes use different names in some cases. In particular, `clients[i].phone_number` is populated from `home_phone`, not chosen using the preferred-phone selection. See the [client phone mappings](/docs/full-variable-list#phone-numbers) for the complete attribute, note, and safety-flag reference.
+
+Sites using LegalServer's **Person Phone Numbers beta feature** can also have a `phone_numbers` list, described below. Do not assume that feature or list is available for every site.
 
 ### Financial & Eligibility
 
@@ -156,6 +184,29 @@ Files attached to the LegalServer record.
 - `['name']`: The file name.
 - `['title']`: The document title.
 - `['download_url']`: Path to download the file.
+
+### `phone_numbers`
+
+Client phone-number records for sites using the **Person Phone Numbers beta feature**. The API schema includes this list on the case object and provides a separate `GET /api/v2/matters/{case_uuid}/phone_numbers` endpoint, which requires the `API Search Matter Phone Numbers` permission. Whether the list is present in `legalserver_data` depends on the data fetched by the integration.
+
+- `['phone_number']`: The phone-number string (may be `null`).
+- `['type']`: Lookup dictionary identifying the phone type.
+- `['is_primary']`: Boolean identifying a primary number.
+- `['is_preferred']`: Preferred-number flag (may be `null`).
+- `['is_safe']`: Safe-to-contact flag (may be `null`).
+- `['note']`: Phone note (may be `null`).
+
+When this list is available, display numbers marked as primary:
+
+```jinja2
+{%p for phone in legalserver_data.get('phone_numbers', []) %}
+{%p if phone.get('is_primary') and phone.get('phone_number') %}
+{{ phone['phone_number'] }}
+{%p endif %}
+{%p endfor %}
+```
+
+This reads the raw list; it does not mean the integration selects that number for `clients[i].phone_number`.
 
 ### `contacts`
 
