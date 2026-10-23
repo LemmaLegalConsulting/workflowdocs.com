@@ -152,7 +152,13 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].birthdate`          | Date of birth.                             |
 | `clients[i].gender`             | Gender.                                    |
 | `clients[i].marital_status`     | Marital status.                            |
-| `clients[i].email`              | Client email; imported from `client_email_address`. See [Email Addresses](#email-addresses). |
+| `clients[i].email`              | Client's email address.                    |
+| `clients[i].phone_number`       | Home phone for LegalServer clients.        |
+| `clients[i].mobile_number`      | Mobile phone.                              |
+| `clients[i].work_phone`         | Work phone.                                |
+| `clients[i].other_phone`        | Other phone.                               |
+| `clients[i].fax_phone`          | Fax number.                                |
+| `clients[i].preferred_phone_number` | Preferred phone type (label, not a number). |
 | `clients[i].preferred_language` | Preferred language.                        |
 | `clients[i].pronouns`           | Preferred pronouns.                        |
 | `clients[i].aliases`            | List of aliases.                           |
@@ -161,53 +167,9 @@ Available for any `ALIndividual` or item in an `ALPeopleList` (replace `clients[
 | `clients[i].program`            | Associated LegalServer program.            |
 | `signature_date`                | The date the document is generated/signed. |
 
-### Email Addresses
+For example, use `{{ clients[0].email }}` for the first client's email or `{{ clients[0].mobile_number }}` for their mobile phone. Contact fields may be blank if they have not been entered in LegalServer.
 
-| Variable | Source / meaning |
-| -------- | ---------------- |
-| `clients[i].email` | Populated from `legalserver_data['client_email_address']` when that value is not `null`. |
-| `client.email` | In the standard LegalServer import, `client` refers to the same person as `clients[0]`, so this is the same email attribute, not another address. |
-| `legalserver_data['client_email_address']` | Raw client email string (may be `null`). |
-| `legalserver_case.email` | Populated from `legalserver_data['case_email_address']`: the case's email address, **not the client's personal email**. |
-
-The core LegalServer matter schema exposes one client email field. The standard client mapping does not populate separate home, work, secondary, or alternate email attributes, an email-address list, or client email note/safety flags. Additional addresses require interview-specific support or site-specific custom fields; do not assume attributes such as `clients[i].email_address` or `clients[i].secondary_email` exist.
-
-For a template with several clients, use each person's own attribute, such as `{{ clients[0].email }}` and `{{ clients[1].email }}`, when populated. The standard LegalServer import creates only `clients[0]`; it does not turn case-contact emails into additional clients.
-
-Some request interviews also collect `client_email` as a delivery destination. This standalone interview variable is not another automatically imported client attribute and should not be confused with the raw API key `client_email_address`.
-
-See [LegalServer email addresses](/docs/legalserver-data-reference#email-addresses) for raw fields and [client email options](#client-email-options) for the helper used by request interviews.
-
-### Phone Numbers
-
-Person attributes are separate from the raw `legalserver_data` dictionary. When the LegalServer integration populates the client, it uses these mappings (only when the source value is not `null`):
-
-| Client attribute                    | LegalServer source                                      | Meaning                              |
-| ----------------------------------- | ------------------------------------------------------- | ------------------------------------ |
-| `clients[i].phone_number`            | `legalserver_data['home_phone']`                         | Home phone, **not a selected primary phone**. |
-| `clients[i].mobile_number`           | `legalserver_data['mobile_phone']`                       | Mobile phone.                        |
-| `clients[i].work_phone`              | `legalserver_data['work_phone']`                         | Work phone.                          |
-| `clients[i].other_phone`             | `legalserver_data['other_phone']`                        | Other phone.                         |
-| `clients[i].fax_phone`               | `legalserver_data['fax_phone']`                          | Fax number.                          |
-| `clients[i].preferred_phone_number`  | `legalserver_data['preferred_phone_number']['lookup_value_name']` | Preferred-phone lookup label, **not an actual number**. |
-
-The integration also copies phone notes and safety flags when present:
-
-| Number attribute | Note attribute | Safety attribute |
-| ---------------- | -------------- | ---------------- |
-| `phone_number` | `phone_number_note` | `phone_number_safe` |
-| `mobile_number` | `mobile_number_note` | `mobile_number_safe` |
-| `work_phone` | `work_phone_note` | `work_phone_safe` |
-| `other_phone` | `other_phone_note` | `other_phone_safe` |
-| `fax_phone` | `fax_phone_note` | `fax_phone_safe` |
-
-Prefix these with `clients[i].`, for example `clients[0].mobile_number_safe`. A safety flag records whether a number is safe to contact; it is not a preferred- or primary-number indicator.
-
-AssemblyLine's `phone_numbers()` method formats the populated `mobile_number`, `phone_number`, `work_number`, `other_number`, and `home_number` attributes. The LegalServer mapping does **not** populate `work_number`, `other_number`, or `home_number`; it uses `work_phone`, `other_phone`, and `phone_number` instead. Therefore, `{{ clients[0].phone_numbers() }}` does not include the imported work or other phone numbers. It also does not filter numbers using the LegalServer `*_safe` flags.
-
-`clients[i].fax_number` may be used by other interview/support code, but this LegalServer mapping populates `fax_phone`, not `fax_number`. Do not assume these differently named attributes are interchangeable or automatically available.
-
-For raw API fields and the optional `phone_numbers` list with primary-number flags, see [LegalServer phone numbers](/docs/legalserver-data-reference#phone-numbers).
+For raw LegalServer field names, see [Client Information](/docs/legalserver-data-reference#client-information).
 
 ---
 
@@ -267,12 +229,6 @@ These are Jinja-callable functions built into Workflow Docs.
 | `wfd_normalize_language_code(code, default="")`         | Maps Chinese variants like `zh_CN`, `zh_TW`, `zh-Hans`, `zh-Hant` to the canonical `zh-CN`/`zh-TW` form.                                                                                                                |
 | `wfd_filter_language_codes_for_choices(codes)`          | Turns a list of language codes into a list of `{label, value}` dicts suitable for a Docassemble `code:` field.                                                                                                          |
 | `wfd_client_language_code_for_name(name, default="en")` | Resolves a language name (e.g. `"Spanish"`) to its code (e.g. `"es"`).                                                                                                                                                  |
-
-### Client Email Options
-
-`get_client_email_options()` returns unique, nonempty candidate values from `client.email`, then already-created items in `clients`, then `legalserver_data['client_email']` if that key exists. It returns `[""]` when no candidates are found.
-
-The final fallback key is `client_email`, **not** the core API's `client_email_address`. Normally, the standard LegalServer import supplies the API value through `client.email` / `clients[0].email`; the helper does not directly read the raw `client_email_address` field. It gathers existing values rather than discovering additional addresses or splitting a value into multiple addresses.
 
 ### Dates
 
